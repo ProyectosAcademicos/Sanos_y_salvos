@@ -2,7 +2,6 @@
 
 function App() {
 
-
   return (
     <>
       <h1 class="text-red-500 dark:text-black-40">
