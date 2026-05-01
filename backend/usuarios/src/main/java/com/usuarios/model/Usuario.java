@@ -25,5 +25,5 @@ public class Usuario {
     private String direccion;
     private String tipoUsuario;
     private LocalDate fechaRegistro;
-    
+
 }
