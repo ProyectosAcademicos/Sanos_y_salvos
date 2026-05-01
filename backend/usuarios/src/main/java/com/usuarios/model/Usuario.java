@@ -23,6 +23,7 @@ public class Usuario {
     private String contrasena;
     private String telefono;
     private String direccion;
+    private String tipoUsuario;
     private LocalDate fechaRegistro;
 
 
