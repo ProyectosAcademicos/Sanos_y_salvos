@@ -4,12 +4,17 @@ import com.usuarios.model.Usuario;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.usuarios.repository.RepositoryUsuario;
+import org.springframework.context.annotation.Bean; 
 
 import java.util.List;
 import java.util.ArrayList;
 
+@Bean
 @Service
 public class ServiceUsuario {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder; // Inyección de dependencia del codificador de contraseñas (hasheo)
 
     @Autowired
     private RepositoryUsuario repositoryUsuario; // Inyección de dependencia del repositorio
@@ -22,13 +27,20 @@ public class ServiceUsuario {
         if (repositoryUsuario.findByRut(usuario.getRut()).isPresent()) {
             throw new Exception("El RUT ya está registrado en el sistema.");
         }
+        // String passwordHash = passwordEncoder.encode(usuario.getContrasena()); // Hasheamos la contraseña antes de guardarla    
+        // usuario.setPassword(passwordHash);
         return repositoryUsuario.save(usuario);
     }
+
+    // if (!passwordEncoder.matches(passwordPlano, usuario.getPassword())) {
+    //     throw new RuntimeException("Credenciales inválidas");
+    // }
 
     public Usuario actualizarUsuario(String rut, Usuario usuarioActualizado){ //actualizamos un usuario existente
         return repositoryUsuario.findByRut(rut).map(usuario -> {
             usuario.setNombre(usuarioActualizado.getNombre());
             usuario.setEmail(usuarioActualizado.getEmail());
+            usuario.setPassword(passwordHash);
             return repositoryUsuario.save(usuario);
         }).orElse(null);
     }
