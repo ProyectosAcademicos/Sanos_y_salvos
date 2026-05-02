@@ -12,6 +12,10 @@ services:
       timeout: 20s
       retries: 10
 
+#<---- AÑADIMOS EL SERVICIO DE MASCOTAS---->
+# IMPORTANTE: Asegúrate de que la ruta en build apunte a la carpeta correcta donde está el Dockerfile de mascotas.
+# IMPORTANTE: Asegúrate de que el puerto 8080 no esté siendo usado por otro servicio en tu máquina.
+# Se puede utilizar esta misma configuración para los otros microservicios, solo cambiando el nombre del servicio, el puerto y la ruta del build.
   mascotas-service:
     build: ./mascotas  # <--- IMPORTANTE: Agregamos la carpeta mascotas
     container_name: ms_mascotas
