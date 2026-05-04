@@ -2,13 +2,13 @@ version: "3.9"
 
 services:
 
-  mysql-db:
+  db:
     image: mysql:8
-    container_name: mysql-db
+    container_name: mysql_sanos_y_salvos
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: usuarios_db
+      MYSQL_DATABASE: sanos_y_salvos
     ports:
       - "3307:3306"
     volumes:
@@ -21,9 +21,9 @@ services:
     ports:
       - "8081:8080"
     depends_on:
-      - mysql-db
+      - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/usuarios_db
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sanos_y_salvos?createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: 1234
 

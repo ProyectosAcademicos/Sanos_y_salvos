@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Data;
 import java.time.LocalDate;
 import jakarta.persistence.Column;
+import jakarta.persistence.PrePersist;
 
 
 @Data
@@ -25,5 +26,10 @@ public class Usuario {
     private String direccion;
     private String tipoUsuario;
     private LocalDate fechaRegistro;
+    
+    @PrePersist
+        protected void onCreate() {
+            this.fechaRegistro = LocalDate.now(); // Establece la fecha actual al crear una nuevo usuario
+    }
 
 }
