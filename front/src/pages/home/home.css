@@ -1,0 +1,46 @@
+.contenedorBody{
+    /* display: flex;
+    justify-content: space-between;
+    align-items: center; */
+    padding: 20px;
+}
+
+.portada{
+    width: 50vw;
+    height: 80vh;
+}
+
+h2{
+    color: var(--Texto-Principal, #2C3E50);
+    text-align: center;
+
+    /* H2 */
+    font-family: Roboto;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.contenedorBoton{
+    display: flex;
+    width: 300px;
+    padding: 19px 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.btnIngresar{
+    color: var(--Texto-Principal, #2C3E50);
+    text-align: center;
+    font-family: Roboto;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border-radius: 20px;
+    border: 1px solid var(--Gris-medio, #D1D5DB);
+    background: var(--gris-claro-fondos, #F5F7FA);
+    width: 100%;
+}

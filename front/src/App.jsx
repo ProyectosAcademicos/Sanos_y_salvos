@@ -4,7 +4,7 @@ function App() {
 
   return (
     <>
-      <h1 class="text-red-500 dark:text-black-40">
+      <h1 class="">
         <Home />
       </h1>
     </>

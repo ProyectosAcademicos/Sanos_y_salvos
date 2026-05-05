@@ -1,0 +1,29 @@
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.header-general{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.logo{
+    width: 150px;
+    height: auto;
+}
+
+
+/*  Responsividad */
+@media (max-width: 768px) {
+    .header-general {
+        padding: 10px;
+    }
+
+    .logo {
+        width: 100px;
+    }
+}
