@@ -1,7 +1,7 @@
 package com.reportes.controller;
 
-import com.reportes.model.reporte;
-import com.reportes.service.reporteService;
+import com.reportes.model.Reporte;
+import com.reportes.service.ReporteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,29 +10,29 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/reportes")
-public class reporteController {
+public class ReporteController {
 
     @Autowired
-    private reporteService service;
+    private ReporteService service;
 
     @GetMapping
-    public List<reporte> obtenerReportes() {
+    public List<Reporte> obtenerReportes() {
         return service.buscarReportes();
     }
 
     @GetMapping("/activos")
-    public List<reporte> obtenerReportesActivos() {
+    public List<Reporte> obtenerReportesActivos() {
         return service.obtenerReportesActivos();
     }
 
     @PostMapping
-    public reporte agregarReporte(@RequestBody reporte nuevoReporte) {
+    public Reporte agregarReporte(@RequestBody Reporte nuevoReporte) {
         return service.agregarReporte(nuevoReporte);
     }
 
     @GetMapping("/{idReporte}")
-    public ResponseEntity<reporte> obtenerReportePorId(@PathVariable String idReporte) {
-        reporte reporte = service.obtenerReportePorId(idReporte);
+    public ResponseEntity<Reporte> obtenerReportePorId(@PathVariable String idReporte) {
+        Reporte reporte = service.obtenerReportePorId(idReporte);
         if (reporte != null) {
             return ResponseEntity.ok(reporte);
         } else {
@@ -41,8 +41,8 @@ public class reporteController {
     }
 
     @PutMapping("/{idReporte}")
-    public ResponseEntity<reporte> modificarReporte(@PathVariable String idReporte, @RequestBody reporte reporteActualizado) {
-        reporte reporte = service.modificarReporte(idReporte, reporteActualizado);
+    public ResponseEntity<Reporte> modificarReporte(@PathVariable String idReporte, @RequestBody Reporte reporteActualizado) {
+        Reporte reporte = service.modificarReporte(idReporte, reporteActualizado);
         if (reporte != null) {
             return ResponseEntity.ok(reporte);
         } else {
@@ -51,8 +51,8 @@ public class reporteController {
     }
 
     @PutMapping("/{idReporte}/suspender")
-    public ResponseEntity<reporte> suspenderReporte(@PathVariable String idReporte) {
-        reporte reporte = service.suspenderReporte(idReporte);
+    public ResponseEntity<Reporte> suspenderReporte(@PathVariable String idReporte) {
+        Reporte reporte = service.suspenderReporte(idReporte);
         if (reporte != null) {
             return ResponseEntity.ok(reporte);
         } else {

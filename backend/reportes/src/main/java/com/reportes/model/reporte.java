@@ -8,14 +8,16 @@ import lombok.Data;
 import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.PrePersist;
+import org.hibernate.annotations.UuidGenerator;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class reporte {
+public class Reporte {
     
     @Id
+    @UuidGenerator
     @Column(nullable = false, unique = true)
     private String idReporte;
     private String rutUsuario;
