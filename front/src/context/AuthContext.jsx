@@ -33,5 +33,4 @@
 // };
 
 
-// // ✅ Hook personalizado para acceder fácilmente al contexto
 // export const useAuth = () => useContext(AuthContext);

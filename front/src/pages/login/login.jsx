@@ -9,7 +9,7 @@ const Login = () => {
         <form>
             <input type="email" placeholder="Email" />
             <input type="password" placeholder="Contraseña" />
-            <button type="submit">Acceder</button>
+            <button type="submit" onClick={"/login"}>Acceder</button>
             <button type="submit">Recuperar clave</button>
         </form>
         <FooterGeneral />
