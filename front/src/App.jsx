@@ -1,21 +1,20 @@
 import Home from "./pages/home/home";
 import Login from "./pages/login/login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
-
   return (
-    // <AuthProvider>
+    <AuthProvider>
       <Router>
         <Routes>
-          {/* Rutas públicas */}
+          {/* Rutas generales */}
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
         </Routes>
       </Router>
-    // </AuthProvider>
-  )
+    </AuthProvider>
+  );
 }
 
 export default App;

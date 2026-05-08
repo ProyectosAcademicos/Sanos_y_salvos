@@ -1,6 +1,6 @@
-import "./footer.css";
+import "./Footer.css";
 
-const footerGeneral = () => {
+const FooterGeneral = () => {
     return (
         <div className="footerGeneral">
             <p>© 2024 Copyright:</p>
@@ -16,4 +16,4 @@ const footerGeneral = () => {
     );
 }
 
-export default footerGeneral;
+export default FooterGeneral;

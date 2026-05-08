@@ -1,4 +1,4 @@
-import '../headerGeneral/HeaderGeneral.css';
+import './HeaderGeneral.css';
 import { useState } from "react";
 
 const HeaderGeneral = () => {
