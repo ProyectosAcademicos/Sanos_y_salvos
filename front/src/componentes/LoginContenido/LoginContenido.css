@@ -1,0 +1,54 @@
+.contenedorBody{
+    /* display: flex;
+    justify-content: space-between;
+    align-items: center; */
+    padding: 20px;
+}
+
+.portada{
+    width: 50vw;
+    height: 80vh;
+}
+
+h1{
+    color: var(--Texto-Principal, #2C3E50);
+    text-align: center;
+
+    /* H2 */
+    font-family: Roboto;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    height: 65vh;
+    width: 100vw;
+    padding: 19px 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.contenedorCP{
+    display: flex;
+    flex-direction: column;
+    padding: 19px 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.contenedorBoton{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    padding: 19px 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}

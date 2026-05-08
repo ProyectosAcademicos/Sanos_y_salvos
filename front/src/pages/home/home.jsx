@@ -1,7 +1,7 @@
 import Header from "../../componentes/Header/HeaderGeneral/HeaderGeneral";
 import Footer from "../../componentes/Footer/FooterGeneral/FooterGeneral";
 import HomeContenido from "../../componentes/HomeContenido/HomeContenido";
-import './home.css';
+// import './home.css';
 
 const Home = () => {
     return (

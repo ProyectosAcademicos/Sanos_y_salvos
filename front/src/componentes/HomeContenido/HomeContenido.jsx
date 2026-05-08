@@ -1,4 +1,4 @@
-
+import './homeContenido.css';
 
 const HomeContenido = () => {
     return(
