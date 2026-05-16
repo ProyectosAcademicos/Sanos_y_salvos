@@ -12,6 +12,7 @@ const loginContenido = () => {
                 <div className="contenedorBoton">
                     <button type="submit">Acceder</button>
                     <button type="submit">Recuperar clave</button>
+                    <button type="submit">Registrarse</button>
                 </div>
                 
             </form>
