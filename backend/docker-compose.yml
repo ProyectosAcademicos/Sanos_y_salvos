@@ -29,3 +29,16 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: 1234
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+    matching-service:
+      build: ./matching
+      container_name: ms_matching
+      ports:
+        - "8082:8080"  # Usamos el 8082 para que no choque con Mascotas (8080)
+      depends_on:
+        db:
+        condition: service_healthy
+      environment:
+        SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sanos_y_salvos
+        SPRING_DATASOURCE_USERNAME: root
+        SPRING_DATASOURCE_PASSWORD: 1234
