@@ -47,11 +47,6 @@ public class ServiceUsuario {
         }
         repositoryUsuario.deleteById(rut);
         return true;    
-
-        // return repositoryUsuario.findByRut(rut).map(usuario -> {
-        //     repositoryUsuario.delete(usuario);
-        //     return true;
-        // }).orElse(false);
     }
 
     public Usuario getUsuarioByRut(String rut) { //obtenemos un usuario por su rut
