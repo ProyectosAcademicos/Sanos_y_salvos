@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.usuarios.repository.RepositoryUsuario;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import com.usuarios.strategy.PasswordStrategy;
+import com.usuarios.factory.FactoryProvider;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -13,10 +15,13 @@ import java.util.ArrayList;
 public class ServiceUsuario {
 
     @Autowired
-    private PasswordEncoder passwordEncoder; // Inyección de dependencia del codificador de contraseñas (hasheo)
+    private PasswordStrategy passwordStrategy; // Inyección de dependencia del codificador de contraseñas (hasheo)
 
     @Autowired
     private RepositoryUsuario repositoryUsuario; // Inyección de dependencia del repositorio
+
+    @Autowired
+    private FactoryProvider factoryProvider;
 
     public List<Usuario> getUsuarios(){ //traemos todos los usuarios
         return repositoryUsuario.findAll();
@@ -24,18 +29,22 @@ public class ServiceUsuario {
 
     public Usuario crearUsuario(Usuario usuario) throws Exception { //creamos un nuevo usuario
         if (repositoryUsuario.findByRut(usuario.getRut()).isPresent()) {
-            throw new Exception("El RUT ya está registrado en el sistema.");
+            throw new Exception("El RUT ya está registrado.");
         }
-        String passwordHash = passwordEncoder.encode(usuario.getContrasena()); // Hasheamos la contraseña antes de guardarla
-        usuario.setContrasena(passwordHash);
-        return repositoryUsuario.save(usuario);
+        UsuarioFactory factory = factoryProvider.obtenerFactory(usuario.getTipoUsuario());
+        Usuario nuevoUsuario = factory.crearUsuario(usuario);
+
+        String passwordHash = passwordStrategy.encode(nuevoUsuario.getContrasena());
+        nuevoUsuario.setContrasena(passwordHash);
+
+        return repositoryUsuario.save(nuevoUsuario);
     }
 
     public Usuario actualizarUsuario(String rut, Usuario usuarioActualizado){ //actualizamos un usuario existente
         return repositoryUsuario.findByRut(rut).map(usuario -> {
             usuario.setNombre(usuarioActualizado.getNombre());
             usuario.setEmail(usuarioActualizado.getEmail());
-            String passwordHash = passwordEncoder.encode(usuarioActualizado.getContrasena());
+            String passwordHash = passwordStrategy.encode(usuarioActualizado.getContrasena());
             usuario.setContrasena(passwordHash);
             return repositoryUsuario.save(usuario);
         }).orElse(null);
@@ -57,5 +66,4 @@ public class ServiceUsuario {
     public Usuario getUsuarioByRut(String rut) { //obtenemos un usuario por su rut
         return repositoryUsuario.findByRut(rut).orElse(null);
     }
-
 }
