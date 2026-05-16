@@ -1,0 +1,26 @@
+.input-linea {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background: transparent;
+    outline: none;
+    width: 100%;
+    padding: 10px 0;
+    margin-bottom: 15px;
+}
+
+.boton-registrar {
+    background-color: #f4f7f9; /* Color claro del diseño */
+    border: 1px solid #d1d8dd;
+    border-radius: 10px;
+    padding: 10px 40px;
+    cursor: pointer;
+}
+
+.boton-volver {
+    background: none;
+    border: none;
+    color: #2C3E50;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 10px;
+}
