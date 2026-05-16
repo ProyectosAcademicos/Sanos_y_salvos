@@ -4,11 +4,19 @@ import com.reportes.model.Reporte;
 import com.reportes.repository.RepositoryReportes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.reportes.strategy.EstadoStrategyProvider;
+import com.reportes.factory.ReporteFactoryProvider;
 
 import java.util.List;
 
 @Service
 public class ReporteService {
+
+    @Autowired
+    private ReporteFactoryProvider factoryProvider;
+
+    @Autowired
+    private EstadoStrategyProvider strategyProvider;
 
     @Autowired
     private RepositoryReportes repository;
@@ -23,8 +31,12 @@ public class ReporteService {
         return repository.findByEstado("activo");
     }
 
-    public Reporte agregarReporte(Reporte nuevoReporte) {
-        return repository.save(nuevoReporte);
+    public Reporte agregarReporte(Reporte nuevoReporte) { // El estado se establece automáticamente a "activo" al crear el reporte
+
+    ReporteFactory factory = factoryProvider.obtenerFactory("activo");
+    Reporte reporteCreado = factory.crearReporte(nuevoReporte); 
+
+    return repository.save(reporteCreado); // Guarda el reporte con el estado "activo" en la base de datos
     }
 
     public Reporte obtenerReportePorId(String idReporte) {
@@ -50,15 +62,13 @@ public class ReporteService {
 
     //suspender reporte
     public Reporte suspenderReporte(String idReporte) {
-        Reporte reporteExistente = repository.findById(idReporte).
-                orElse(null);
+        Reporte reporteExistente =repository.findById(idReporte).orElse(null);
         if (reporteExistente != null) {
-            reporteExistente.setEstado("suspendido");
+            EstadoReporteStrategy strategy = strategyProvider.obtenerStrategy("suspendido");
+            strategy.cambiarEstado(reporteExistente);
             return repository.save(reporteExistente);
-        }
+    }
         return null;
     }
-
-
 
 }
