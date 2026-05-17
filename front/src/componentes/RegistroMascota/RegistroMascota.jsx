@@ -11,9 +11,9 @@ const RegistroMascota = () => {
             <form className="registro-form">
                 <div className='contenedorCP'>
                     <input type="text" placeholder="Nombre de la mascota" className="input-linea" />
+                    <input type="text" placeholder="Tipo" className="input-linea" />
                     <input type="text" placeholder="Raza" className="input-linea" />
                     <input type="number" placeholder="Edad" className="input-linea" />
-                    <input type="text" placeholder="Color" className="input-linea" />
                     <input type="text" placeholder="Tamaño" className="input-linea" />
                     <input type="text" placeholder="Descripción" className="input-linea" />
                 </div>

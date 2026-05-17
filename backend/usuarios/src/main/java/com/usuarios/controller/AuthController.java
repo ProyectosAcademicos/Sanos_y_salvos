@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.*;
 
 import com.usuarios.model.Usuario;
 import com.usuarios.service.ServiceUsuario;
+import java.util.Map;
 import com.usuarios.security.JwtUtil;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = "http://localhost:5173")
 public class AuthController {
 
     @Autowired
@@ -23,7 +25,7 @@ public class AuthController {
 
     // LOGIN
     @PostMapping("/login")
-    public String login(@RequestBody Usuario request) {
+    public Map<String, String> login(@RequestBody Usuario request) {
 
         Usuario usuario = serviceUsuario.getUsuarioByRut(request.getRut());
 
@@ -31,13 +33,13 @@ public class AuthController {
             throw new RuntimeException("Usuario no encontrado");
         }
 
-        // comparar password hasheado
         if (!passwordEncoder.matches(request.getContrasena(), usuario.getContrasena())) {
             throw new RuntimeException("Contraseña incorrecta");
         }
 
-        // generar token
-        return jwtUtil.generateToken(usuario.getRut());
+        String token = jwtUtil.generateToken(usuario.getRut());
+
+        return Map.of("token", token);
     }
 
     // REGISTRO 

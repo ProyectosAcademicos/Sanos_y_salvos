@@ -58,6 +58,12 @@
     width: 100%;
 }
 
+.contenedor-acciones-secundarias{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
 .btn-informar {
     background-color: #F5F7FA;
     border: 1px solid #D1D5DB;
