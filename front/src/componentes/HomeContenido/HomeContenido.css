@@ -1,3 +1,5 @@
+
+
 .contenedorBody{
     /* display: flex;
     justify-content: space-between;
@@ -32,15 +34,13 @@ h2{
 }
 
 .btnIngresar{
-    color: var(--Texto-Principal, #2C3E50);
+    color: #2C3E50;
     text-align: center;
+
+    /* H3 */
     font-family: Roboto;
     font-size: 30px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    border-radius: 20px;
-    border: 1px solid var(--Gris-medio, #D1D5DB);
-    background: var(--gris-claro-fondos, #F5F7FA);
-    width: 100%;
 }
