@@ -34,4 +34,5 @@ public class MatchingController {
     public ResponseEntity<List<MatchingDTO>> listarPorUsuario(@PathVariable Long idUsuario) {
         return ResponseEntity.ok(matchingService.obtenerMatchesPorUsuario(idUsuario));
     }
+    
 }
