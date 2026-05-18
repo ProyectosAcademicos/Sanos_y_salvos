@@ -1,8 +1,11 @@
 package com.matching.service;
 
 import com.matching.dto.MatchingDTO;
+import com.matching.factory.MatchingStrategyFactory;
 import com.matching.model.Matching;
 import com.matching.repository.MatchingRepository;
+import com.matching.strategy.MatchingStrategy;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
@@ -14,7 +17,10 @@ public class MatchingService {
     @Autowired
     private MatchingRepository matchingRepository;
 
-    // --- MÉTODOS DE CONVERSIÓN (Usando Lombok detras de escena) ---
+    @Autowired
+    private MatchingStrategyFactory strategyFactory;
+
+    // --- MÉTODOS DE CONVERSIÓN (Mantener tu DTO limpio con Lombok) ---
     private MatchingDTO convertirADTO(Matching matching) {
         MatchingDTO dto = new MatchingDTO();
         dto.setId(matching.getId());
@@ -26,33 +32,39 @@ public class MatchingService {
         return dto;
     }
 
-    // --- LÓGICA DEL DIAGRAMA DE CLASES ---
-    public Double calcularCompatibilidad(Long idMascota, Long idReporte) {
-        // Simulación: En el futuro aquí compararemos campos reales (raza, tipo, etc.)
-        return 85.5;
-    }
+    // --- LÓGICA ORIENTADA A EVENTOS (Tablero de GitHub) ---
 
-    public MatchingDTO generarMatch(Long idMascota, Long idUsuario, Long idReporte) {
-        Double compatibilidad = calcularCompatibilidad(idMascota, idReporte);
+    // TAREA GITHUB 1: Recibir evento "ReporteCreado"
+    public void procesarEventoReporteCreado(Long idReporte, Long idMascota, Long idUsuario) {
+        System.out.println("--> EVENTO RECIBIDO: ReporteCreado para el reporte ID: " + idReporte);
+
+        // TAREA GITHUB 2: Lógica de coincidencia usando PATRÓN FACTORY + STRATEGY
+        MatchingStrategy estrategia = strategyFactory.getEstrategia("fisicoStrategy");
         
-        // Si el porcentaje es alto (>= 70%), guardamos la coincidencia
-        if (compatibilidad >= 70.0) {
-            Matching matching = new Matching(null, idMascota, idUsuario, idReporte, compatibilidad, LocalDateTime.now());
-            Matching guardado = matchingRepository.save(matching);
-            notificarCoincidencia(guardado.getIdUsuario(), guardado.getId());
-            return convertirADTO(guardado);
+        // El patrón Strategy calcula de forma dinámica (en el futuro pasarás objetos reales)
+        Double porcentaje = estrategia.calcular(null, null); 
+
+        // TAREA GITHUB 3: Generar resultado de coincidencia si supera el umbral
+        if (porcentaje >= 70.0) {
+            Matching match = new Matching(null, idMascota, idUsuario, idReporte, porcentaje, LocalDateTime.now());
+            Matching guardado = matchingRepository.save(match);
+            
+            // TAREA GITHUB 4: Enviar evento "MatchEncontrado"
+            emitirEventoMatchEncontrado(guardado.getId());
         }
-        return null;
     }
 
+    // TAREA GITHUB 4 (Detalle): Simulación del emisor de eventos
+    private void emitirEventoMatchEncontrado(Long idMatch) {
+        System.out.println("--> EVENTO EMITIDO: MatchEncontrado con ID: " + idMatch);
+        // Aquí conectarán RabbitMQ / Kafka o el sistema que defina tu grupo para alertar a Notificaciones
+    }
+
+    // --- MÉTODOS DE CONSULTA (Para cuando el frontend pida ver los matches) ---
     public List<MatchingDTO> obtenerMatchesPorUsuario(Long idUsuario) {
         return matchingRepository.findByIdUsuario(idUsuario)
                 .stream()
                 .map(this::convertirADTO)
                 .toList();
-    }
-
-    public void notificarCoincidencia(Long idUsuario, Long idMatch) {
-        System.out.println("NOTIFICACIÓN SYSTEM: Coincidencia encontrada para Usuario ID: " + idUsuario + " en Match ID: " + idMatch);
     }
 }
