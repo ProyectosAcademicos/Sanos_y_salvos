@@ -21,6 +21,7 @@ const LoginContenido = () => {
             navigate("/home");
 
         } catch (error) {
+            alert("Error al iniciar sesión: Usuario no registrado o contraseña incorrecta");
             console.error("Error al iniciar sesión:", error);
         }
     }
