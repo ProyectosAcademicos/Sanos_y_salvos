@@ -2,7 +2,9 @@ package com.mascotas.service;
 
 import com.mascotas.model.Mascota;
 import com.mascotas.repository.MascotaRepository;
+import com.mascotas.strategy.EstadoMascotaStrategy;
 import com.mascotas.dto.MascotaDTO;
+import com.mascotas.factory.EstadoMascotaFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -12,9 +14,12 @@ import java.util.Optional;
 public class MascotaService {
 
     @Autowired
-    private MascotaRepository mascotaRepository;
+    private MascotaRepository mascotaRepository; // ✅ no lo quites
 
-    // --- MÉTODOS DE CONVERSIÓN ---
+    @Autowired
+    private EstadoMascotaFactory estadoFactory; // ✅ Factory inyectada
+
+    // --- CONVERSIONES ---
     private MascotaDTO convertirADTO(Mascota mascota) {
         MascotaDTO dto = new MascotaDTO();
         dto.setId(mascota.getId());
@@ -43,7 +48,7 @@ public class MascotaService {
         return mascota;
     }
 
-    // --- CRUD ACTUALIZADO A DTO ---
+    // --- CRUD ---
     public List<MascotaDTO> listarTodas() {
         return mascotaRepository.findAll()
                 .stream()
@@ -63,7 +68,6 @@ public class MascotaService {
         return mascotaRepository.findById(id).map(this::convertirADTO);
     }
 
-    // AÑADIR ESTO:
     public MascotaDTO actualizar(Long id, MascotaDTO dto) {
         return mascotaRepository.findById(id).map(mascota -> {
             mascota.setNombre(dto.getNombre());
@@ -73,16 +77,18 @@ public class MascotaService {
             mascota.setTamaño(dto.getTamaño());
             mascota.setDescripcion(dto.getDescripcion());
             mascota.setEstado(dto.getEstado());
-            mascota.setIdUsuario(dto.getIdUsuario()); 
+            mascota.setIdUsuario(dto.getIdUsuario());
             return convertirADTO(mascotaRepository.save(mascota));
         }).orElseThrow(() -> new RuntimeException("No encontrada"));
     }
 
+    // ✅ Solo UNA versión, con Factory y Strategy
     public MascotaDTO actualizarEstado(Long id, String nuevoEstado) {
         return mascotaRepository.findById(id).map(mascota -> {
-            mascota.setEstado(nuevoEstado);
+            EstadoMascotaStrategy strategy = estadoFactory.obtener(nuevoEstado);
+            strategy.ejecutar(mascota);
             return convertirADTO(mascotaRepository.save(mascota));
-        }).orElseThrow(() -> new RuntimeException("No encontrada"));
+        }).orElseThrow(() -> new RuntimeException("Mascota no encontrada con id: " + id));
     }
 
     public void eliminar(Long id) {
