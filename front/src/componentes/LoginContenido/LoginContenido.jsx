@@ -32,12 +32,14 @@ const LoginContenido = () => {
             <form onSubmit={handleLogin}>
                 <div className='contenedorCP'>
                     <input 
+                        className='input'
                         type="text" 
                         placeholder="Rut" 
                         value={rut}
                         onChange={(e) => setRut(e.target.value)}
                     />
                     <input 
+                        className='input'
                         type="password" 
                         placeholder="Contraseña" 
                         value={contrasena}
@@ -45,9 +47,11 @@ const LoginContenido = () => {
                     />
                 </div>
                 <div className="contenedorBoton">
-                    <button type="submit">Acceder</button>
-                    <button type="submit">Recuperar clave</button>
-                    <button type="submit">Registrarse</button>
+                    <div className="contenedorBotonesPrimarios">
+                        <button className="botonPrimario" type="submit">Acceder</button>
+                        <button className="botonSecundario" type="submit">Recuperar clave</button>
+                    </div>
+                    <button className="botonRegistrarse" type="submit">Registrarse</button>
                 </div>
             </form>
         </div>

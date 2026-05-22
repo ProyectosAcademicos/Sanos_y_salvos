@@ -1,3 +1,70 @@
+/* =========================
+   LIGHT MODE (DEFAULT)
+========================= */
+:root {
+  /* Primary */
+  --color-primary: #2BCE71;
+  --color-primary-alt: #3498DB;
+
+  /* Backgrounds */
+  --color-bg: #F9FCFF;
+  --color-card: #F5F7FA;
+  --color-border: #D1D5DB;
+
+  /* Text */
+  --color-text: #2C3E50;
+  --color-text-secondary: #E5E5E5;
+
+  /* Icons */
+  --color-icon: #243B51;
+
+  /* Alerts */
+  --color-error: #E74C3C;
+  --color-warning: #F39C12;
+  --color-pending: #F39C12;
+
+  /* Accent */
+  --color-accent: #A3E4D7;
+
+  /* Typography */
+  --font-family: "Roboto", sans-serif;
+
+  --h1-size: 38px;
+  --h2-size: 32px;
+  --h3-size: 30px;
+  --h4-size: 28px;
+}
+
+/* =========================
+   DARK MODE
+========================= */
+.dark-mode {
+  /* Primary */
+  --color-primary: #2ECC71;
+  --color-primary-alt: #5DADE2;
+
+  /* Backgrounds */
+  --color-bg: #121417;
+  --color-card: #1C1F24;
+  --color-border: #2A2F36;
+
+  /* Text */
+  --color-text: #2A2F36;
+  --color-text-secondary: #E5E7EB;
+
+  /* Icons */
+  --color-icon: #B6DBFF;
+
+  /* Alerts */
+  --color-error: #FF5C5C;
+  --color-warning: #FFA94D;
+  --color-pending: #FFD43B;
+
+  /* Accent */
+  --color-accent: #A3E4D7;
+}
+
+
 .input-linea {
     border: none;
     border-bottom: 1px solid #ccc;
