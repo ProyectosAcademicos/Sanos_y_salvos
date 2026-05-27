@@ -1,5 +1,5 @@
-import Header from "../../componentes/Header/HeaderGeneral/HeaderGeneral";
-import Footer from "../../componentes/Footer/FooterGeneral/FooterGeneral";
+import Header from "../../componentes/header/headerGeneral/headerGeneral";
+import Footer from "../../componentes/footer/footerGeneral/footerGeneral";
 import HomeContenido from "../../componentes/HomeContenido/HomeContenido";
 // import './home.css';
 

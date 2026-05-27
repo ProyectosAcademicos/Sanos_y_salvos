@@ -1,5 +1,5 @@
-import HeaderGeneral from "../../componentes/Header/HeaderGeneral/HeaderGeneral";
-import FooterGeneral from "../../componentes/Footer/FooterGeneral/FooterGeneral";
+import HeaderGeneral from "../../componentes/header/headerGeneral/headerGeneral";
+import FooterGeneral from "../../componentes/footer/footerGeneral/footerGeneral";
 import RegistroMascota from "../../componentes/RegistroMascota/RegistroMascota";
 
 const Mascota = () => {

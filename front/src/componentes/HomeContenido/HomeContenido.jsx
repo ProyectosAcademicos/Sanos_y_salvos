@@ -1,4 +1,4 @@
-import './homeContenido.css';
+import './HomeContenido.css';
 
 const HomeContenido = () => {
     return(
