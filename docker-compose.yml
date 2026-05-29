@@ -1,0 +1,52 @@
+services:
+
+  mysql-db:
+    image: mysql:8
+    container_name: mysql_sanos_y_salvos
+    restart: always
+
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: sanos_y_salvos
+
+    ports:
+      - "3307:3306"
+
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  usuarios-app:
+    build:
+      context: ./backend/usuarios
+      dockerfile: Dockerfile
+
+    container_name: usuarios-app
+
+    ports:
+      - "8081:8080"
+
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/sanos_y_salvos
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+  frontend:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+
+    container_name: mi-front
+
+    ports:
+      - "3000:80"
+
+    depends_on:
+      - usuarios-app
