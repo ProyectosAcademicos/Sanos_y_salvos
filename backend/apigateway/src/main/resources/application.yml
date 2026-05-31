@@ -18,10 +18,10 @@ spring:
           predicates:
             - Path=/auth/**
 
-        - id: usuarios-service
-          uri: http://usuarios-app:8080
-          predicates:
-            - Path=/api/usuarios/**
+        # - id: usuarios-service
+        #   uri: http://usuarios-app:8080
+        #   predicates:
+        #     - Path=/api/usuarios/**
 
         - id: mascotas-service
           uri: http://mascotas-service:8080
@@ -37,3 +37,8 @@ spring:
           uri: http://notificaciones-service:8080
           predicates:
             - Path=/api/notificaciones/**
+        
+        - id: reportes-service
+          uri: http://reportes-service:8080
+          predicates:
+            - Path=/api/reportes/**
