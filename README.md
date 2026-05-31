@@ -30,7 +30,7 @@ Vite
 React
 
 
-#!/bin/bash
+```bash
 
 echo "======================================="
 echo "   ESTRUCTURA DEL PROYECTO"
@@ -73,3 +73,4 @@ echo ""
 echo "======================================="
 echo "✔ Arquitectura levantada con Docker Compose"
 echo "======================================="
+```
