@@ -14,31 +14,43 @@ spring:
       routes:
 
         - id: usuarios-auth
-          uri: http://usuarios-app:8080
+          uri: http://usuarios-service:8080
           predicates:
-            - Path=/auth/**
+            - Path=/auth/usuarios/**
+          filters:
+            - RewritePath=/auth/usuarios/(?<segment>.*), /auth/${segment}
 
-        # - id: usuarios-service
-        #   uri: http://usuarios-app:8080
-        #   predicates:
-        #     - Path=/api/usuarios/**
+        - id: usuarios-service
+          uri: http://usuarios-service:8080
+          predicates:
+            - Path=/usuarios/**
+          filters:
+            - RewritePath=/usuarios/(?<segment>.*), /usuarios/${segment}
 
         - id: mascotas-service
           uri: http://mascotas-service:8080
           predicates:
             - Path=/api/mascotas/**
+          filters:
+            - RewritePath=/api/mascotas/(?<segment>.*), /api/${segment}
 
         - id: matching-service
           uri: http://matching-service:8080
           predicates:
             - Path=/api/matching/**
+          filters:
+            - RewritePath=/api/matching/(?<segment>.*), /api/${segment}
 
         - id: notificaciones-service
           uri: http://notificaciones-service:8080
           predicates:
             - Path=/api/notificaciones/**
-        
+          filters:
+            - RewritePath=/api/notificaciones/(?<segment>.*), /api/${segment}
+
         - id: reportes-service
           uri: http://reportes-service:8080
           predicates:
             - Path=/api/reportes/**
+          filters:
+            - RewritePath=/api/reportes/(?<segment>.*), /api/${segment}
