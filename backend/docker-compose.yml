@@ -1,3 +1,4 @@
+
 services:
   db:
     image: mysql:9.0
@@ -62,3 +63,47 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: 1234
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+  api-gateway:
+  build: ./api-gateway
+  container_name: api_gateway
+  restart: always
+  ports:
+    - "8081:8081"
+  depends_on:
+    - ms_mascotas
+    - ms_matching
+    - ms_notificaciones
+
+  #<---- AÑADIMOS EL API GATEWAY---->    
+
+  
+  server:
+  port: 8081
+  spring:
+    application:
+      name: api-gateway
+
+    cloud:
+      gateway:
+        routes:
+
+          - id: usuarios-service
+            uri: http://usuarios-service:8080
+            predicates:
+              - Path=/api/usuarios/**
+
+          - id: mascotas-service
+            uri: http://mascotas-service:8080
+            predicates:
+              - Path=/api/mascotas/**
+
+          - id: matching-service
+            uri: http://matching-service:8080
+            predicates:
+              - Path=/api/matching/**
+
+          - id: notificaciones-service
+            uri: http://notificaciones-service:8080
+            predicates:
+              - Path=/api/notificaciones/**
