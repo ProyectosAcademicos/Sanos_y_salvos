@@ -1,21 +1,37 @@
 
 services:
-  db:
-    image: mysql:9.0
-    container_name: mysql_sanos_y_salvos
-    environment:
-      MYSQL_DATABASE: sanos_y_salvos
-      MYSQL_ROOT_PASSWORD: 1234
-    ports:
-      - "3306:3306"
-    healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-      timeout: 20s
-      retries: 10
 
 # IMPORTANTE: Asegúrate de que la ruta en build apunte a la carpeta correcta donde está el Dockerfile de mascotas.
 # IMPORTANTE: Asegúrate de que el puerto 8080 no esté siendo usado por otro servicio en tu máquina.
 # Se puede utilizar esta misma configuración para los otros microservicios, solo cambiando el nombre del servicio, el puerto y la ruta del build.
+
+  #<---- AÑADIMOS LA BBDD---->
+  db:
+    image: mysql:8
+    container_name: mysql_sanos_y_salvos
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: sanos_y_salvos
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  #<---- AÑADIMOS EL SERVICIO DE USUARIOS---->
+  usuarios-app:
+    build: .
+    container_name: usuarios-app
+    restart: always
+    ports:
+      - "8084:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sanos_y_salvos?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 1234
+        
 #<---- AÑADIMOS EL SERVICIO DE MASCOTAS---->
   mascotas-service:
     build: ./mascotas  # <--- IMPORTANTE: Agregamos la carpeta mascotas
@@ -69,41 +85,9 @@ services:
   container_name: api_gateway
   restart: always
   ports:
-    - "8081:8081"
+    - "8081:8086"
   depends_on:
     - ms_mascotas
     - ms_matching
     - ms_notificaciones
-
-  #<---- AÑADIMOS EL API GATEWAY---->    
-
-  
-  server:
-  port: 8081
-  spring:
-    application:
-      name: api-gateway
-
-    cloud:
-      gateway:
-        routes:
-
-          - id: usuarios-service
-            uri: http://usuarios-service:8080
-            predicates:
-              - Path=/api/usuarios/**
-
-          - id: mascotas-service
-            uri: http://mascotas-service:8080
-            predicates:
-              - Path=/api/mascotas/**
-
-          - id: matching-service
-            uri: http://matching-service:8080
-            predicates:
-              - Path=/api/matching/**
-
-          - id: notificaciones-service
-            uri: http://notificaciones-service:8080
-            predicates:
-              - Path=/api/notificaciones/**
+    - usuarios-app

@@ -1,0 +1,39 @@
+
+
+  #<---- AÑADIMOS EL API GATEWAY---->    
+
+server:
+  port: 8086
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+
+        - id: usuarios-auth
+          uri: http://usuarios-app:8080
+          predicates:
+            - Path=/auth/**
+
+        - id: usuarios-service
+          uri: http://usuarios-app:8080
+          predicates:
+            - Path=/api/usuarios/**
+
+        - id: mascotas-service
+          uri: http://mascotas-service:8080
+          predicates:
+            - Path=/api/mascotas/**
+
+        - id: matching-service
+          uri: http://matching-service:8080
+          predicates:
+            - Path=/api/matching/**
+
+        - id: notificaciones-service
+          uri: http://notificaciones-service:8080
+          predicates:
+            - Path=/api/notificaciones/**
