@@ -12,13 +12,14 @@ services:
       timeout: 20s
       retries: 10
 
-#<---- AÑADIMOS EL SERVICIO DE MASCOTAS---->
 # IMPORTANTE: Asegúrate de que la ruta en build apunte a la carpeta correcta donde está el Dockerfile de mascotas.
 # IMPORTANTE: Asegúrate de que el puerto 8080 no esté siendo usado por otro servicio en tu máquina.
 # Se puede utilizar esta misma configuración para los otros microservicios, solo cambiando el nombre del servicio, el puerto y la ruta del build.
+#<---- AÑADIMOS EL SERVICIO DE MASCOTAS---->
   mascotas-service:
     build: ./mascotas  # <--- IMPORTANTE: Agregamos la carpeta mascotas
     container_name: ms_mascotas
+    restart: always
     ports:
       - "8080:8080"
     depends_on:
@@ -30,11 +31,29 @@ services:
       SPRING_DATASOURCE_PASSWORD: 1234
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
 
+  #<---- AÑADIMOS EL SERVICIO DE MATCHING---->
   matching-service:
     build: ./matching
     container_name: ms_matching
+    restart: always
     ports:
       - "8082:8080"  # Usamos el 8082 para que no choque con Mascotas (8080)
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sanos_y_salvos
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 1234
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+  #<---- AÑADIMOS EL SERVICIO DE NOTIFICACIONES---->    
+  notificaciones-service:
+    build: ./notificaciones
+    container_name: ms_notificaciones
+    restart: always
+    ports:
+      - "8083:8080"
     depends_on:
       db:
         condition: service_healthy
