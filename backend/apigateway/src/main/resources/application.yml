@@ -46,7 +46,7 @@ spring:
           predicates:
             - Path=/api/notificaciones/**
           filters:
-            - RewritePath=/api/notificaciones/(?<segment>.*), /api/${segment}
+            # - RewritePath=/api/notificaciones/(?<segment>.*), /api/${segment}
 
         - id: reportes-service
           uri: http://reportes-service:8080
