@@ -74,3 +74,70 @@ echo "======================================="
 echo "✔ Arquitectura levantada con Docker Compose"
 echo "======================================="
 ```
+
+
+### Lógica del flujo 
+
+```bash
+┌─────────────┐
+│   Usuario   │
+└──────┬──────┘
+       │
+       │ Solicitud HTTP
+       ▼
+┌─────────────────┐
+│   API Gateway   │
+│   Puerto 8081   │
+└──────┬──────────┘
+       │
+       │ Analiza la ruta solicitada
+       │ y redirige al microservicio
+       ▼
+ ┌───────────────────────────────┐
+ │      Microservicios           │
+ ├───────────────────────────────┤
+ │ /auth/usuarios/**             │
+ │ → usuarios-service            │
+ │                               │
+ │ /usuarios/**                  │
+ │ → usuarios-service            │
+ │                               │
+ │ /api/mascotas/**              │
+ │ → mascotas-service            │
+ │                               │
+ │ /api/matching/**              │
+ │ → matching-service            │
+ │                               │
+ │ /api/notificaciones/**        │
+ │ → notificaciones-service      │
+ │                               │
+ │ /reportes/**                  │
+ │ → reportes-service            │
+ └───────────────┬───────────────┘
+                 │
+                 │ Consulta/Actualización
+                 ▼
+        ┌─────────────────┐
+        │ Base de Datos   │
+        │ Propia de cada  │
+        │ Microservicio   │
+        └────────┬────────┘
+                 │
+                 │ Respuesta
+                 ▼
+        ┌─────────────────┐
+        │ Microservicio   │
+        └────────┬────────┘
+                 │
+                 │ Respuesta HTTP
+                 ▼
+        ┌─────────────────┐
+        │  API Gateway    │
+        └────────┬────────┘
+                 │
+                 ▼
+        ┌─────────────────┐
+        │    Usuario      │
+        └─────────────────┘
+
+```
