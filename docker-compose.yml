@@ -1,52 +1,168 @@
 services:
 
-  mysql-db:
+  usuario-db:
     image: mysql:8
-    container_name: mysql_sanos_y_salvos
+    container_name: usuarios-db
     restart: always
-
     environment:
       MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: sanos_y_salvos
-
+      MYSQL_DATABASE: usuarios-db
     ports:
       - "3307:3306"
-
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-padmin"]
       interval: 10s
       timeout: 5s
       retries: 10
 
-  usuarios-app:
+  usuarios-service:
     build:
       context: ./backend/usuarios
-      dockerfile: Dockerfile
-
-    container_name: usuarios-app
-
-    ports:
-      - "8081:8080"
-
-    depends_on:
-      mysql-db:
-        condition: service_healthy
-
+    container_name: usuarios-service
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/sanos_y_salvos
+      SPRING_DATASOURCE_URL: jdbc:mysql://usuario-db:3306/usuarios-db
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: admin
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    ports:
+      - "8084:8080"
+    depends_on:
+      usuario-db:
+        condition: service_healthy
+
+  mascotas-db:
+    image: mysql:8
+    container_name: mascotas-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: mascotas-db
+    ports:
+      - "3308:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-padmin"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  mascotas-service:
+    build:
+      context: ./backend/mascotas
+    container_name: mascotas-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mascotas-db:3306/mascotas-db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    depends_on:
+      mascotas-db:
+        condition: service_healthy
+
+  matching-db:
+    image: mysql:8
+    container_name: matching-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: matching-db
+    ports:
+      - "3309:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-padmin"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  matching-service:
+    build:
+      context: ./backend/matching
+    container_name: matching-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://matching-db:3306/matching-db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: admin
+    ports:
+      - "8082:8080"
+    depends_on:
+      matching-db:
+        condition: service_healthy
+
+  notificaciones-db:
+    image: mysql:8
+    container_name: notificaciones-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: notificaciones-db
+    ports:
+      - "3310:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-padmin"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  notificaciones-service:
+    build:
+      context: ./backend/notificaciones
+    container_name: notificaciones-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://notificaciones-db:3306/notificaciones-db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: admin
+    ports:
+      - "8083:8080"
+    depends_on:
+      notificaciones-db:
+        condition: service_healthy
+
+  reportes-db:
+    image: mysql:8
+    container_name: reportes-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: reportes-db
+    ports:
+      - "3311:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-padmin"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  reportes-service:
+    build:
+      context: ./backend/reportes
+    container_name: reportes-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://reportes-db:3306/reportes-db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: admin
+    ports:
+      - "8085:8080"
+    depends_on:
+      reportes-db:
+        condition: service_healthy
+
+  api-gateway:
+    build:
+      context: ./backend/apigateway
+    container_name: api-gateway
+    ports:
+      - "8081:8086"
+    depends_on:
+      - usuarios-service
+      - mascotas-service
+      - matching-service
+      - notificaciones-service
+      - reportes-service
 
   frontend:
     build:
       context: ./front
-      dockerfile: Dockerfile
-
-    container_name: mi-front
-
+    container_name: frontend
     ports:
       - "3000:80"
-
     depends_on:
-      - usuarios-app
+      - api-gateway

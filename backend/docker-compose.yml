@@ -1,64 +1,93 @@
-services:
-  db:
-    image: mysql:9.0
-    container_name: mysql_sanos_y_salvos
-    environment:
-      MYSQL_DATABASE: sanos_y_salvos
-      MYSQL_ROOT_PASSWORD: 1234
-    ports:
-      - "3306:3306"
-    healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-      timeout: 20s
-      retries: 10
+
+# services:
 
 # IMPORTANTE: Asegúrate de que la ruta en build apunte a la carpeta correcta donde está el Dockerfile de mascotas.
 # IMPORTANTE: Asegúrate de que el puerto 8080 no esté siendo usado por otro servicio en tu máquina.
 # Se puede utilizar esta misma configuración para los otros microservicios, solo cambiando el nombre del servicio, el puerto y la ruta del build.
-#<---- AÑADIMOS EL SERVICIO DE MASCOTAS---->
-  mascotas-service:
-    build: ./mascotas  # <--- IMPORTANTE: Agregamos la carpeta mascotas
-    container_name: ms_mascotas
-    restart: always
-    ports:
-      - "8080:8080"
-    depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sanos_y_salvos?createDatabaseIfNotExist=true
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: 1234
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
 
-  #<---- AÑADIMOS EL SERVICIO DE MATCHING---->
-  matching-service:
-    build: ./matching
-    container_name: ms_matching
-    restart: always
-    ports:
-      - "8082:8080"  # Usamos el 8082 para que no choque con Mascotas (8080)
-    depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sanos_y_salvos
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: 1234
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+  #<---- AÑADIMOS LA BBDD---->
+#   db:
+#     image: mysql:8
+#     container_name: mysql_sanos_y_salvos
+#     restart: always
+#     environment:
+#       MYSQL_ROOT_PASSWORD: 1234
+#       MYSQL_DATABASE: sanos_y_salvos
+#     ports:
+#       - "3307:3306"
+#     volumes:
+#       - mysql_data:/var/lib/mysql
 
-  #<---- AÑADIMOS EL SERVICIO DE NOTIFICACIONES---->    
-  notificaciones-service:
-    build: ./notificaciones
-    container_name: ms_notificaciones
-    restart: always
-    ports:
-      - "8083:8080"
-    depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sanos_y_salvos
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: 1234
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+#   #<---- AÑADIMOS EL SERVICIO DE USUARIOS---->
+#   usuarios-app:
+#     build: .
+#     container_name: usuarios-app
+#     restart: always
+#     ports:
+#       - "8084:8080"
+#     depends_on:
+#       - db
+#     environment:
+#       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sanos_y_salvos?createDatabaseIfNotExist=true
+#       SPRING_DATASOURCE_USERNAME: root
+#       SPRING_DATASOURCE_PASSWORD: 1234
+        
+# #<---- AÑADIMOS EL SERVICIO DE MASCOTAS---->
+#   mascotas-service:
+#     build: ./mascotas  # <--- IMPORTANTE: Agregamos la carpeta mascotas
+#     container_name: ms_mascotas
+#     restart: always
+#     ports:
+#       - "8080:8080"
+#     depends_on:
+#       db:
+#         condition: service_healthy
+#     environment:
+#       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sanos_y_salvos?createDatabaseIfNotExist=true
+#       SPRING_DATASOURCE_USERNAME: root
+#       SPRING_DATASOURCE_PASSWORD: 1234
+#       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+#   #<---- AÑADIMOS EL SERVICIO DE MATCHING---->
+#   matching-service:
+#     build: ./matching
+#     container_name: ms_matching
+#     restart: always
+#     ports:
+#       - "8082:8080"  # Usamos el 8082 para que no choque con Mascotas (8080)
+#     depends_on:
+#       db:
+#         condition: service_healthy
+#     environment:
+#       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sanos_y_salvos
+#       SPRING_DATASOURCE_USERNAME: root
+#       SPRING_DATASOURCE_PASSWORD: 1234
+#       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+#   #<---- AÑADIMOS EL SERVICIO DE NOTIFICACIONES---->    
+#   notificaciones-service:
+#     build: ./notificaciones
+#     container_name: ms_notificaciones
+#     restart: always
+#     ports:
+#       - "8083:8080"
+#     depends_on:
+#       db:
+#         condition: service_healthy
+#     environment:
+#       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sanos_y_salvos
+#       SPRING_DATASOURCE_USERNAME: root
+#       SPRING_DATASOURCE_PASSWORD: 1234
+#       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+#   api-gateway:
+#   build: ./apigateway
+#   container_name: api_gateway
+#   restart: always
+#   ports:
+#     - "8081:8086"
+#   depends_on:
+#     - ms_mascotas
+#     - ms_matching
+#     - ms_notificaciones
+#     - usuarios-app

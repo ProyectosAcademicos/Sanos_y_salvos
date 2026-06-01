@@ -1,31 +1,31 @@
-version: "3.9"
+# version: "3.9"
 
-services:
+# services:
 
-  db:
-    image: mysql:8
-    container_name: mysql_sanos_y_salvos
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: sanos_y_salvos
-    ports:
-      - "3307:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
+#   db:
+#     image: mysql:8
+#     container_name: mysql_sanos_y_salvos
+#     restart: always
+#     environment:
+#       MYSQL_ROOT_PASSWORD: 1234
+#       MYSQL_DATABASE: sanos_y_salvos
+#     ports:
+#       - "3307:3306"
+#     volumes:
+#       - mysql_data:/var/lib/mysql
 
-  usuarios-app:
-    build: .
-    container_name: usuarios-app
-    restart: always
-    ports:
-      - "8081:8080"
-    depends_on:
-      - db
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sanos_y_salvos?createDatabaseIfNotExist=true
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: 1234
+#   usuarios-app:
+#     build: .
+#     container_name: usuarios-app
+#     restart: always
+#     ports:
+#       - "8081:8080"
+#     depends_on:
+#       - db
+#     environment:
+#       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sanos_y_salvos?createDatabaseIfNotExist=true
+#       SPRING_DATASOURCE_USERNAME: root
+#       SPRING_DATASOURCE_PASSWORD: 1234
 
-volumes:
-  mysql_data:
+# volumes:
+#   mysql_data:
