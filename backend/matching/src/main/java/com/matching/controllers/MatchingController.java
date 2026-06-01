@@ -22,7 +22,7 @@ public class MatchingController {
             @RequestParam Long idMascota, 
             @RequestParam Long idUsuario) {
         
-        // Ejecutamos la nueva lógica basada en Eventos + Strategy + Factory
+        // Ejecutamos la  lógica basada en Eventos + Strategy + Factory
         matchingService.procesarEventoReporteCreado(idReporte, idMascota, idUsuario);
         
         // Retornamos una respuesta simple indicando que el evento fue recibido por el sistema

@@ -38,8 +38,8 @@ spring:
           uri: http://matching-service:8080
           predicates:
             - Path=/api/matching/**
-          filters:
-            - RewritePath=/api/matching/(?<segment>.*), /api/${segment}
+          # filters:
+          #   - RewritePath=/api/matching/(?<segment>.*), /api/${segment}
 
         - id: notificaciones-service
           uri: http://notificaciones-service:8080
