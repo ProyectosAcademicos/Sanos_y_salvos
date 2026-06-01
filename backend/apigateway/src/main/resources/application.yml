@@ -51,6 +51,6 @@ spring:
         - id: reportes-service
           uri: http://reportes-service:8080
           predicates:
-            - Path=/api/reportes/**
+            - Path=/reportes/**
           filters:
-            - RewritePath=/api/reportes/(?<segment>.*), /api/${segment}
+            - RewritePath=/reportes/(?<segment>.*), /reportes/${segment}
