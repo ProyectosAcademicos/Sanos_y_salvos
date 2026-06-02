@@ -26,8 +26,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(ControllerUsuario.class)
+@WebMvcTest(
+    controllers = ControllerUsuario.class,
+    excludeAutoConfiguration = {
+            org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class
+        }
+    )
 @AutoConfigureMockMvc(addFilters = false)
+
 // @Import(SecurityConfig.class)
 public class ControllerUsuarioTest {
 
@@ -40,8 +46,9 @@ public class ControllerUsuarioTest {
     @MockBean
     private ServiceUsuario serviceUsuario;
 
-    // @MockBean
-    // private JwtAuthFilter jwtAuthFilter;
+
+    @MockBean
+    private JwtAuthFilter jwtAuthFilter;
 
     //prueba para obtener la lista de usuarios
     @Test
