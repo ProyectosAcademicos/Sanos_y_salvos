@@ -22,10 +22,7 @@ public class ControllerUsuario {
 
     @GetMapping("/{rut}")
     public Usuario getUsuarioById(@PathVariable String rut){
-        return serviceUsuario.getUsuarios().stream()
-                .filter(usuario -> usuario.getRut().equals(rut))
-                .findFirst()
-                .orElse(null); // Usuario no encontrado
+        return serviceUsuario.getUsuarioByRut(rut);
     }
 
     @PostMapping
