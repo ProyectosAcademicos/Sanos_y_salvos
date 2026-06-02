@@ -11,7 +11,7 @@ import com.usuarios.security.JwtUtil;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin({"http://localhost:5173", "http://localhost:3000"})
 public class AuthController {
 
     @Autowired
