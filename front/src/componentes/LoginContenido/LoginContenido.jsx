@@ -1,6 +1,7 @@
 import './LoginContenido.css';
 
 import { useState } from 'react';
+// import { Link } from "react-router-dom";
 
 import { login } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +19,7 @@ const LoginContenido = () => {
             const data = await login(rut, contrasena);
             localStorage.setItem("token", data.token);
             alert("Inicio de sesión exitoso");
+            console.log("LOGIN EJECUTADO");
             navigate("/home");
 
         } catch (error) {
@@ -49,10 +51,18 @@ const LoginContenido = () => {
                 <div className="contenedorBoton">
                     <div className="contenedorBotonesPrimarios">
                         <button className="botonPrimario" type="submit">Acceder</button>
-                        <button className="botonSecundario" type="submit">Recuperar clave</button>
+                        <button onClick={() => navigate("/recuperar-clave")} className="botonSecundario" type="button">Recuperar clave</button>
                     </div>
-                    <button className="botonRegistrarse" type="submit">Registrarse</button>
                 </div>
+                <button
+                    type="button"
+                    className="botonRegistrarse"
+                    onClick={() => {
+                        navigate("/registro");
+                    }}
+                >
+                    Registrarse
+                </button>
             </form>
         </div>
         
