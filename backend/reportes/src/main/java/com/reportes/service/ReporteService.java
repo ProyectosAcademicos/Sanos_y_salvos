@@ -4,7 +4,10 @@ import com.reportes.model.Reporte;
 import com.reportes.repository.RepositoryReportes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.reportes.strategy.EstadoReporteStrategy;
 import com.reportes.strategy.EstadoStrategyProvider;
+import com.reportes.factory.ReporteFactory;
 import com.reportes.factory.ReporteFactoryProvider;
 
 import java.util.List;
