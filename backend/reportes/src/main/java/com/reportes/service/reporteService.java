@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.reportes.strategy.EstadoStrategyProvider;
 import com.reportes.factory.ReporteFactoryProvider;
+import com.reportes.factory.ReporteFactory;
+import com.reportes.strategy.EstadoReporteStrategy;
 
 import java.util.List;
 

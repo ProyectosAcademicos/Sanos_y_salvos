@@ -9,8 +9,11 @@ import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.PrePersist;
 import org.hibernate.annotations.UuidGenerator;
+import lombok.*;
 
 @Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
