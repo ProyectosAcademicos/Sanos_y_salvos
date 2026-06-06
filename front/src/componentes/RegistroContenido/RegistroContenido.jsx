@@ -17,7 +17,7 @@ const RegistroContenido = () => {
                 </div>
                 <div className="contenedorBoton">
                     <button type="submit" className="boton-registrar">Registrar</button>
-                    <button type="button" className="boton-volver" onClick={() => navigate('/home')}>
+                    <button type="button" className="boton-volver" onClick={() => navigate('/login')}>
                         Volver
                     </button>
                 </div>

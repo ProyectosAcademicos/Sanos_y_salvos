@@ -9,6 +9,8 @@ import com.reportes.strategy.EstadoReporteStrategy;
 import com.reportes.strategy.EstadoStrategyProvider;
 import com.reportes.factory.ReporteFactory;
 import com.reportes.factory.ReporteFactoryProvider;
+import com.reportes.factory.ReporteFactory;
+import com.reportes.strategy.EstadoReporteStrategy;
 
 import java.util.List;
 
