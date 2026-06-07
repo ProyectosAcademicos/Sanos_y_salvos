@@ -1,6 +1,6 @@
-import Header from "../../componentes/header/headerGeneral/headerGeneral";
+import Header from "../../componentes/header/General/headerGeneral";
 import Footer from "../../componentes/footer/footerGeneral/footerGeneral";
-import HomePrincipal from "../../componentes/HomePrincipal/HomePrincipal";
+import HomePrincipal from "../../componentes/HomePrincipal/Cliente/HomePrincipal";
 
 const Home = () => {
     return (

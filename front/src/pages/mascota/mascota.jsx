@@ -1,4 +1,4 @@
-import HeaderGeneral from "../../componentes/header/headerGeneral/headerGeneral";
+import HeaderGeneral from "../../componentes/header/General/headerGeneral";
 import FooterGeneral from "../../componentes/footer/footerGeneral/footerGeneral";
 import RegistroMascota from "../../componentes/RegistroMascota/RegistroMascota";
 

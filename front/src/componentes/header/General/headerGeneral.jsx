@@ -1,7 +1,11 @@
 import './HeaderGeneral.css';
 import { useState } from "react";
+// import { useNavigate } from "react-router-dom";
 
 const HeaderGeneral = () => {
+
+    // const navigate = useNavigate();
+    
     const [menuOpen, setMenuOpen] = useState(false);
     return (
         <header className="header-general">

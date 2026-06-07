@@ -1,4 +1,4 @@
-import Header from "../../componentes/header/headerGeneral/headerGeneral";
+import Header from "../../componentes/header/General/headerGeneral";
 import Footer from "../../componentes/footer/footerGeneral/footerGeneral";
 import HomeContenido from "../../componentes/HomeContenido/HomeContenido";
 // import './home.css';
