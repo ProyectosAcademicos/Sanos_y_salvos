@@ -11,7 +11,7 @@ import com.usuarios.security.JwtUtil;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin({"http://localhost:5173", "http://localhost:3000"})
+// @CrossOrigin({"http://localhost:5173", "http://localhost:3000"})
 public class AuthController {
 
     @Autowired
@@ -24,16 +24,40 @@ public class AuthController {
     private JwtUtil jwtUtil;
 
     // LOGIN
-    @PostMapping("/login")
+   @PostMapping("/login")
     public Map<String, String> login(@RequestBody Usuario request) {
+
+        System.out.println("===============");
+        System.out.println("LOGIN VERSION JUNIO 2026");
+        System.out.println("RUT recibido: " + request.getRut());
+        System.out.println("Password recibida: " + request.getContrasena());
 
         Usuario usuario = serviceUsuario.getUsuarioByRut(request.getRut());
 
-        if (usuario == null) {
-            throw new RuntimeException("Usuario no encontrado");
-        }
+        System.out.println("Password BD: " + usuario.getContrasena());
 
-        if (!passwordEncoder.matches(request.getContrasena(), usuario.getContrasena())) {
+        System.out.println(
+            "Hash generado para 12345: "
+            + passwordEncoder.encode("12345")
+        );
+
+        System.out.println(
+            "Prueba directa: " +
+            passwordEncoder.matches(
+                "12345",
+                "$2a$10$WeTgSGzQ8k.ViCeYWp1dnOC9BR2cEDo6bMaqrdAyZ3V0NG0Ao7j9S"
+            )
+        );
+
+        boolean coincide =
+                passwordEncoder.matches(
+                        request.getContrasena(),
+                        usuario.getContrasena());
+
+        System.out.println("MATCHES = " + coincide);
+        System.out.println("===============");
+
+        if (!coincide) {
             throw new RuntimeException("Contraseña incorrecta");
         }
 
@@ -41,13 +65,9 @@ public class AuthController {
 
         return Map.of("token", token);
     }
-
     // REGISTRO 
     @PostMapping("/register")
     public Usuario register(@RequestBody Usuario usuario) {
-
-        // encriptar password antes de guardar
-        usuario.setContrasena(passwordEncoder.encode(usuario.getContrasena()));
 
         try {
             return serviceUsuario.crearUsuario(usuario);

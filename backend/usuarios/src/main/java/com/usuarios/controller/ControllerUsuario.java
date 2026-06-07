@@ -36,7 +36,11 @@ public class ControllerUsuario {
 
     @PutMapping("/{rut}")
     public Usuario actualizarUsuario(@PathVariable String rut, @RequestBody Usuario usuarioActualizado){
-        return serviceUsuario.actualizarUsuario(rut, usuarioActualizado);
+        try {
+            return serviceUsuario.actualizarUsuario(rut, usuarioActualizado);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{rut}")
