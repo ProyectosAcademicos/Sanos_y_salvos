@@ -10,10 +10,12 @@ const RegistroContenido = () => {
             <h1>Registro de usuario</h1>
             <form className="registro-form">
                 <div className='contenedorCP'>
+                    <input type="text" placeholder="Rut" className="input-linea" />
                     <input type="text" placeholder="Nombre" className="input-linea" />
-                    <input type="text" placeholder="Apellido" className="input-linea" />
                     <input type="email" placeholder="Email" className="input-linea" />
                     <input type="password" placeholder="Contraseña" className="input-linea" />
+                    <input type="text" placeholder="Teléfono" className="input-linea" />
+                    <input type="text" placeholder="Dirección" className="input-linea" />
                 </div>
                 <div className="contenedorBoton">
                     <button type="submit" className="boton-registrar">Registrar</button>
