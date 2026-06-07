@@ -29,10 +29,10 @@ const RegistroContenido = () => {
     };
 
     return (
-        <div className="contenedorBody">
+        <div className="contenedorForm">
             <h1>Registro de usuario</h1>
             <form className="registro-form" onSubmit={handleRegistro}>
-                <div className='contenedorCP'>
+                <div className="contenedorDatos">
                     <input type="text" placeholder="Rut" className="input-linea" value={rut} onChange={(e) => setRut(e.target.value)} />
                     <input type="text" placeholder="Nombre" className="input-linea" value={nombre} onChange={(e) => setNombre(e.target.value)} />
                     <input type="email" placeholder="Email" className="input-linea" value={email} onChange={(e) => setEmail(e.target.value)} />

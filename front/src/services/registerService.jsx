@@ -2,14 +2,20 @@
 
 export async function register(rut, nombre, email, contrasena, telefono, direccion) {
 
+    if (
+        rut === "" ||
+        nombre === "" ||
+        email === "" ||
+        contrasena === "" ||
+        telefono === "" ||
+        direccion === ""
+        ) {
+        alert("Por favor, complete todos los campos");
+        return;
+    }   
 
-    console.log("ENVIANDO:");
-    console.log("rut =", rut);
-    console.log("contrasena =", contrasena);
-    console.log("telefono =", telefono);
-    console.log("direccion =", direccion);
 
-  const response = await fetch("http://localhost:8081/auth/usuarios/register", {
+    const response = await fetch("http://localhost:8081/auth/usuarios/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -20,26 +26,27 @@ export async function register(rut, nombre, email, contrasena, telefono, direcci
       email,
       contrasena,
       telefono,
-      direccion
+      direccion,
+      tipoUsuario: "DUEÑO"
     })
   });
 
-  if (rut === "" || nombre === "" || email === "" || contrasena === "" || telefono === "" || direccion === "") {
-    alert("Por favor, complete todos los campos");
-    return;
-  }
 
-  //si la respuesta es 403, mostrar un mensaje de error indicando que el usuario ya existe
-    if (response.status === 403) {
-        alert("Error al registrar usuario: El usuario ya existe");
-        throw new Error("Error al registrar usuario: El usuario ya existe");
+
+  //si la respuesta un error, se intenta parsear el mensaje de error del backend, si no se puede, se muestra un mensaje genérico
+    if (!response.ok) {
+
+        let mensajeError = "Error al registrar usuario";
+
+        try{
+            const errorData = await response.json();
+            mensajeError = errorData.message || mensajeError;
+        } catch {
+            // Si no se puede parsear el JSON, se mantiene el mensaje de error genérico
+            mensajeError = "Error al registrar usuario";
+        }
+        throw new Error(mensajeError);
     }
-
-    //si aparece otro tipo de error diferente a 403, mostrar un mensaje de error indicando el status del error
-  if (!response.status !== 403) {
-    alert("Error status: " + response.statusText + " al registrar usuario. Por favor, intente nuevamente.");
-    throw new Error("Error status: " + response.statusText);
-  }
 
   return response.json();
 

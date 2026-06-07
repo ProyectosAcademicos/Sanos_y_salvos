@@ -32,7 +32,7 @@ const LoginContenido = () => {
         <div>
             <h1>Login</h1>
             <form onSubmit={handleLogin}>
-                <div className='contenedorCP'>
+                <div className='contenedorLogin'>
                     <input 
                         className='input'
                         type="text" 

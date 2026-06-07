@@ -99,12 +99,13 @@ form{
     gap: 10px;
 }
 
-.contenedorCP{
+.contenedorLogin{
     display: flex;
     padding: 60px 60px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-radius: 20px;
     gap: 50px;
     border: 1px solid var(--Gris-medio, #D1D5DB);
     background: var(--color-card, #F5F7FA);
