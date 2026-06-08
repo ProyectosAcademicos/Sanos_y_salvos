@@ -64,10 +64,11 @@ public class MascotaControllerTest {
         mascota.setId(1L);
         mascota.setNombre("Firulais");
 
-        when(mascotaService.guardar(any(MascotaDTO.class)))
+        when(mascotaService.guardar(any(MascotaDTO.class), any(String.class)))
                 .thenReturn(mascota);
 
         mockMvc.perform(post("/api/mascotas")
+                        .header("Authorization", "Bearer token-falso")
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(mascota)))
                 .andExpect(status().isOk())

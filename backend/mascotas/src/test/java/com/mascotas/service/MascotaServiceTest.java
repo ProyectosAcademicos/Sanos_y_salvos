@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
+import com.mascotas.config.JwtUtil;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -23,6 +24,9 @@ public class MascotaServiceTest {
 
     @Mock
     private MascotaRepository mascotaRepository;
+
+    @Mock
+    private JwtUtil jwtUtil;
 
     @Mock
     private EstadoMascotaFactory estadoFactory;
@@ -37,25 +41,31 @@ public class MascotaServiceTest {
 
     @Test
     void debeGuardarMascota() {
-
+    
         Mascota mascota = new Mascota();
         mascota.setId(1L);
         mascota.setNombre("Firulais");
         mascota.setIdUsuario("11111111-1");
-
+    
         MascotaDTO dto = new MascotaDTO();
         dto.setNombre("Firulais");
-        dto.setIdUsuario("11111111-1");
-
+    
+        // Mock del JWT
+        when(jwtUtil.extractUsername(anyString()))
+                .thenReturn("11111111-1");
+    
+        // Mock del repositorio
         when(mascotaRepository.save(any(Mascota.class)))
                 .thenReturn(mascota);
-
+    
         MascotaDTO resultado =
-                mascotaService.guardar(dto);
-
+                mascotaService.guardar(
+                        dto,
+                        "Bearer token-falso"
+                );
+    
         assertNotNull(resultado);
-        assertEquals("Firulais",
-                resultado.getNombre());
+        assertEquals("Firulais", resultado.getNombre());
     }
 
     @Test

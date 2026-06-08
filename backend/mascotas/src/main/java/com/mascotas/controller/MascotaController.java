@@ -23,8 +23,10 @@ public class MascotaController {
     }
 
     @PostMapping
-    public ResponseEntity<MascotaDTO> crear(@RequestBody MascotaDTO dto) {
-        return ResponseEntity.ok(mascotaService.guardar(dto));
+    public ResponseEntity<MascotaDTO> crear(@RequestBody MascotaDTO dto, @RequestHeader("Authorization") String authorizationHeader) {
+        return ResponseEntity.ok(
+            mascotaService.guardar(dto, authorizationHeader)
+        );
     }
 
     @GetMapping("/{id}")

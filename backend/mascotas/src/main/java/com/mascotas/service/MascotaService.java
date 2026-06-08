@@ -9,12 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import com.mascotas.config.JwtUtil;
 
 @Service
 public class MascotaService {
 
     @Autowired
-    private MascotaRepository mascotaRepository; // ✅ no lo quites
+    private JwtUtil jwtUtil; //  Inyectamos el JwtUtil para validar el token y extraer el rut
+
+    @Autowired
+    private MascotaRepository mascotaRepository; 
 
     @Autowired
     private EstadoMascotaFactory estadoFactory; // ✅ Factory inyectada
@@ -22,7 +26,7 @@ public class MascotaService {
     // --- CONVERSIONES ---
     private MascotaDTO convertirADTO(Mascota mascota) {
         MascotaDTO dto = new MascotaDTO();
-        dto.setId(mascota.getId());
+        dto.setId(mascota.getId()); 
         dto.setNombre(mascota.getNombre());
         dto.setTipo(mascota.getTipo());
         dto.setRaza(mascota.getRaza());
@@ -43,7 +47,7 @@ public class MascotaService {
         mascota.setEdad(dto.getEdad());
         mascota.setTamaño(dto.getTamaño());
         mascota.setDescripcion(dto.getDescripcion());
-        mascota.setIdUsuario(dto.getIdUsuario());
+        //mascota.setIdUsuario(rut);
         mascota.setEstado(dto.getEstado());
         return mascota;
     }
@@ -56,12 +60,28 @@ public class MascotaService {
                 .toList();
     }
 
-    public MascotaDTO guardar(MascotaDTO dto) {
+    public MascotaDTO guardar(
+            MascotaDTO dto,
+            String authHeader
+    ) {
+
+        String token =
+                authHeader.replace("Bearer ", "");
+
+        String rut =
+                jwtUtil.extractUsername(token);
+
         Mascota mascota = convertirAEntidad(dto);
+
+        mascota.setIdUsuario(rut);
+
         if (mascota.getEstado() == null) {
             mascota.setEstado("Sano y Salvo");
         }
-        return convertirADTO(mascotaRepository.save(mascota));
+
+        return convertirADTO(
+                mascotaRepository.save(mascota)
+        );
     }
 
     public Optional<MascotaDTO> obtenerPorId(Long id) {

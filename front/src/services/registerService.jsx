@@ -14,6 +14,8 @@ export async function register(rut, nombre, email, contrasena, telefono, direcci
         return;
     }   
 
+    //const token = localStorage.getItem("token");
+
 
     const response = await fetch("http://localhost:8081/auth/usuarios/register", {
     method: "POST",
