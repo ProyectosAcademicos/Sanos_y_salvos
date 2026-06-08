@@ -14,11 +14,16 @@ export async function registrarMascota(nombre, tipo, raza, edad, tamano, descrip
         return;
     }
 
+    const token = localStorage.getItem("token");
+
+    console.log("tamano: " + tamano);
+
 
     const response = await fetch("http://localhost:8081/api/mascotas", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({
             nombre,

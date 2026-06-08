@@ -31,7 +31,7 @@ public class MascotaService {
         dto.setTipo(mascota.getTipo());
         dto.setRaza(mascota.getRaza());
         dto.setEdad(mascota.getEdad());
-        dto.setTamaño(mascota.getTamaño());
+        dto.setTamano(mascota.getTamano());
         dto.setDescripcion(mascota.getDescripcion());
         dto.setIdUsuario(mascota.getIdUsuario());
         dto.setEstado(mascota.getEstado());
@@ -45,7 +45,7 @@ public class MascotaService {
         mascota.setTipo(dto.getTipo());
         mascota.setRaza(dto.getRaza());
         mascota.setEdad(dto.getEdad());
-        mascota.setTamaño(dto.getTamaño());
+        mascota.setTamano(dto.getTamano());
         mascota.setDescripcion(dto.getDescripcion());
         //mascota.setIdUsuario(rut);
         mascota.setEstado(dto.getEstado());
@@ -94,7 +94,7 @@ public class MascotaService {
             mascota.setTipo(dto.getTipo());
             mascota.setRaza(dto.getRaza());
             mascota.setEdad(dto.getEdad());
-            mascota.setTamaño(dto.getTamaño());
+            mascota.setTamano(dto.getTamano());
             mascota.setDescripcion(dto.getDescripcion());
             mascota.setEstado(dto.getEstado());
             mascota.setIdUsuario(dto.getIdUsuario());

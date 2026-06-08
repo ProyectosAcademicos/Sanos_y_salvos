@@ -22,7 +22,7 @@ public class Mascota {
     private String tipo; // Perro, Gato, etc.
     private String raza;
     private Integer edad;
-    private String tamaño;
+    private String tamano;
 
     @Column(columnDefinition = "TEXT")
     private String descripcion;
