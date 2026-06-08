@@ -1,13 +1,13 @@
 import Header from "../../componentes/header/General/headerGeneral";
 import Footer from "../../componentes/footer/footerGeneral/footerGeneral";
-import HomeContenido from "../../componentes/HomeContenido/HomeContenido";
+import HomePrincipal from "../../componentes/Bienvenida/HomeContenido";
 // import './home.css';
 
 const Home = () => {
     return (
         <div className="">
             <Header />  
-            <HomeContenido />
+            <HomePrincipal />
             <Footer />
         </div>
     );

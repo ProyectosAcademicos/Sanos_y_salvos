@@ -20,7 +20,7 @@ const LoginContenido = () => {
             localStorage.setItem("token", data.token);
             alert("Inicio de sesión exitoso");
             console.log("LOGIN EJECUTADO");
-            navigate("/home");
+            navigate("/home-cliente");
 
         } catch (error) {
             alert("Error al iniciar sesión: Usuario no registrado o contraseña incorrecta");

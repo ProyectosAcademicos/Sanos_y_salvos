@@ -1,11 +1,12 @@
-import Home from "./pages/home/home";
+import Bienvenida from "./pages/Bienvenida/home";
+import HomeCliente from "./pages/homePrincipal/Cliente/homePrincipal";
 import Login from "./pages/login/login";
 import Registro from "./pages/registro/registro";
 import Mascota from "./pages/mascota/mascota";
-import HomePrincipal from "./pages/homePrincipal/homePrincipal";
+import HomePrincipal from "./pages/homePrincipal/Cliente/homePrincipal";
 import Reporte from "./pages/reporte/reporte";
 import Estado from "./pages/Estado/estado";
-import Cerrar from "./pages/home/home";
+import Cerrar from "./pages/Bienvenida/home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context//AuthContext/AuthContext";
 
@@ -16,8 +17,9 @@ function App() {
       <Router>
         <Routes>
           {/* Rutas generales */}
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Bienvenida />} />
           <Route path="/home" element={<HomePrincipal />} />
+          <Route path="/home-cliente" element={<HomeCliente />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="/mascota" element={<Mascota />} />

@@ -64,6 +64,13 @@
   --color-accent: #A3E4D7;
 }
 
+.contenedorBody{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
+}
+
 .input-linea {
     border: none;
     border-bottom: 1px solid #ccc;

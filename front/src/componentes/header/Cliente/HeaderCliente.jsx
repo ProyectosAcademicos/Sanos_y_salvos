@@ -28,7 +28,7 @@ const HeaderCliente = () => {
                         <li><a href="/">Iniciar sesión</a></li>
                         <li><a href="/about">Reportar</a></li>
                         <li><a href="/contact">Contacto</a></li>
-                        <li><a href="/cerrar">Cerrar</a></li>
+                        <li><a href="/">Cerrar</a></li>
                     </ul>
                 </nav>
             </div>
@@ -47,7 +47,7 @@ const HeaderCliente = () => {
                             <li><a href="/">Iniciar sesión</a></li>
                             <li><a href="/about">Reportar</a></li>
                             <li><a href="/contact">Contacto</a></li>
-                            <li><a href="/cerrar">Cerrar</a></li>
+                            <li><a href="/">Cerrar</a></li>
                         </ul>
                     </nav>
                 </div>
