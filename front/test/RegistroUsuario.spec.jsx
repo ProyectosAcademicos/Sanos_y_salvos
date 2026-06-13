@@ -6,6 +6,10 @@ import { MemoryRouter } from "react-router-dom";
 import RegistroUsuario from "../src/componentes/RegistroContenido/RegistroContenido";
 import { register } from "../src/services/registerService";
 
+console.log("localStorage =", localStorage);
+console.log("typeof getItem =", typeof localStorage.getItem);
+console.log("typeof setItem =", typeof localStorage.setItem);
+
 vi.mock("../src/services/registerService", () => ({ // acá hago un mock del servicio de registro para evitar llamadas reales a la API
   register: vi.fn()
 }));
