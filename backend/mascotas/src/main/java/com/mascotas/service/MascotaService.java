@@ -52,6 +52,14 @@ public class MascotaService {
         return mascota;
     }
 
+    //buscar por usuario
+    public List<MascotaDTO> buscarPorUsuario(String rut) {
+        return mascotaRepository.findByIdUsuario(rut)
+                .stream()
+                .map(this::convertirADTO)
+                .toList();
+    }
+
     // --- CRUD ---
     public List<MascotaDTO> listarTodas() {
         return mascotaRepository.findAll()

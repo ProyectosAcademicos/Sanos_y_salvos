@@ -1,0 +1,118 @@
+/* =========================
+   LIGHT MODE (DEFAULT)
+========================= */
+:root {
+  /* Primary */
+  --color-primary: #2BCE71;
+  --color-primary-alt: #3498DB;
+
+  /* Backgrounds */
+  --color-bg: #F9FCFF;
+  --color-card: #F5F7FA;
+  --color-border: #D1D5DB;
+
+  /* Text */
+  --color-text: #2C3E50;
+  --color-text-secondary: #E5E5E5;
+
+  /* Icons */
+  --color-icon: #243B51;
+
+  /* Alerts */
+  --color-error: #E74C3C;
+  --color-warning: #F39C12;
+  --color-pending: #F39C12;
+
+  /* Accent */
+  --color-accent: #A3E4D7;
+
+  /* Typography */
+  --font-family: "Roboto", sans-serif;
+
+  --h1-size: 38px;
+  --h2-size: 32px;
+  --h3-size: 30px;
+  --h4-size: 28px;
+}
+
+/* =========================
+   DARK MODE
+========================= */
+.dark-mode {
+  /* Primary */
+  --color-primary: #2ECC71;
+  --color-primary-alt: #5DADE2;
+
+  /* Backgrounds */
+  --color-bg: #121417;
+  --color-card: #1C1F24;
+  --color-border: #2A2F36;
+
+  /* Text */
+  --color-text: #2A2F36;
+  --color-text-secondary: #E5E7EB;
+
+  /* Icons */
+  --color-icon: #B6DBFF;
+
+  /* Alerts */
+  --color-error: #FF5C5C;
+  --color-warning: #FFA94D;
+  --color-pending: #FFD43B;
+
+  /* Accent */
+  --color-accent: #A3E4D7;
+}
+
+.contenedorBody{
+    /* display: flex;
+    justify-content: space-between;
+    align-items: center; */
+    padding: 20px;
+    background: var(--gris-claro-fondos, #F5F7FA);
+}
+
+.portada{
+    width: 50vw;
+    height: 80vh;
+}
+
+.contenedorTitulo{
+    border-radius: 20px;
+    border: 1px solid var(--Gris-medio, #D1D5DB);
+    background: var(--gris-claro-fondos, #F5F7FA);
+}
+
+h1{
+    color: var(--Texto-Principal, #2C3E50);
+    text-align: center;
+
+    /* H2 */
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    font-family: var(--font-family, "Roboto", sans-serif);
+}
+
+.contenedorBoton{
+    display: flex;
+    width: 300px;
+    padding: 19px 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 20px;
+    border: 1px solid var(--color-border, #D1D5DB);
+    background: var(--gris-claro-fondos, #F5F7FA);
+}
+
+.btnIngresar{
+    color: #2C3E50;
+    font-family: var(--font-family, "Roboto", sans-serif);
+    text-align: center;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

@@ -1,26 +1,8 @@
 import './HomePrincipal.css';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-
 
 const HomePrincipal = () => {
     const navigate = useNavigate();
-
-    useEffect(() => {
-
-        const rut = localStorage.getItem("rut");
-
-        if (!rut) return;
-
-        fetch(`http://localhost:8081/bff/dashboard/${rut}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log("Dashboard BFF:", data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }, []);
 
     return (
         <div className="home-container">

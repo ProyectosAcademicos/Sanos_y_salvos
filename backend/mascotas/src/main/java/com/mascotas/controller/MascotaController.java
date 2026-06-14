@@ -29,6 +29,13 @@ public class MascotaController {
         );
     }
 
+    @GetMapping("/usuario/{rut}")
+    public List<MascotaDTO> obtenerPorUsuario(
+            @PathVariable String rut) {
+
+        return mascotaService.buscarPorUsuario(rut);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<MascotaDTO> buscar(@PathVariable Long id) {
         return mascotaService.obtenerPorId(id)

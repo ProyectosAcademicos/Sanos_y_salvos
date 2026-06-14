@@ -1,6 +1,6 @@
 import './LoginContenido.css';
 
-import { useState } from 'react';
+import {  useState } from 'react';
 // import { Link } from "react-router-dom";
 
 import { login } from "../../services/authService";
@@ -18,6 +18,7 @@ const LoginContenido = () => {
         try {
             const data = await login(rut, contrasena);
             localStorage.setItem("token", data.token);
+            localStorage.setItem("rut", rut);
             alert("Inicio de sesión exitoso");
             console.log("LOGIN EJECUTADO");
             navigate("/home-cliente");
