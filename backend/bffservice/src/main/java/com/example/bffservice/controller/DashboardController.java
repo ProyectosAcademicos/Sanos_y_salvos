@@ -1,4 +1,9 @@
-package main.java.com.example.bffservice.DashboardController;
+package com.example.bffservice.controller;
+
+import com.example.bffservice.dto.DashboardDTO;
+import com.example.bffservice.service.DashboardService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*; 
 
 
 @RestController

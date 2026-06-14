@@ -56,6 +56,6 @@ spring:
             - RewritePath=/reportes/(?<segment>.*), /reportes/${segment}
         
         - id: bff-service
-          uri: http://bff-service:8080
+          uri: http://bffservice:8080
           predicates:
             - Path=/bff/**

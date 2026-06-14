@@ -145,6 +145,17 @@ services:
       reportes-db:
         condition: service_healthy
 
+  bffservice:
+    build:
+      context: ./backend/bffservice
+    container_name: bffservice
+    ports:
+      - "8087:8080"
+    depends_on:
+      - usuarios-service
+      - mascotas-service
+      - notificaciones-service
+
   api-gateway:
     build:
       context: ./backend/apigateway
