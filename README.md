@@ -91,53 +91,88 @@ echo "======================================="
 └──────┬──────────┘
        │
        │ Analiza la ruta solicitada
-       │ y redirige al microservicio
        ▼
- ┌───────────────────────────────┐
- │      Microservicios           │
- ├───────────────────────────────┤
- │ /auth/usuarios/**             │
- │ → usuarios-service            │
- │                               │
- │ /usuarios/**                  │
- │ → usuarios-service            │
- │                               │
- │ /api/mascotas/**              │
- │ → mascotas-service            │
- │                               │
- │ /api/matching/**              │
- │ → matching-service            │
- │                               │
- │ /api/notificaciones/**        │
- │ → notificaciones-service      │
- │                               │
- │ /reportes/**                  │
- │ → reportes-service            │
- └───────────────┬───────────────┘
+ ┌─────────────────────────────────────┐
+ │              Rutas                  │
+ ├─────────────────────────────────────┤
+ │ /auth/usuarios/**                   │
+ │ → usuarios-service                  │
+ │                                     │
+ │ /usuarios/**                        │
+ │ → usuarios-service                  │
+ │                                     │
+ │ /api/mascotas/**                    │
+ │ → mascotas-service                  │
+ │                                     │
+ │ /api/matching/**                    │
+ │ → matching-service                  │
+ │                                     │
+ │ /api/notificaciones/**              │
+ │ → notificaciones-service            │
+ │                                     │
+ │ /reportes/**                        │
+ │ → reportes-service                  │
+ │                                     │
+ │ /bff/**                             │
+ │ → bffservice                        │
+ └───────────────┬─────────────────────┘
                  │
-                 │ Consulta/Actualización
+                 │ Si la ruta es /bff/dashboard/{rut}
                  ▼
-        ┌─────────────────┐
-        │ Base de Datos   │
-        │ Propia de cada  │
-        │ Microservicio   │
-        └────────┬────────┘
-                 │
-                 │ Respuesta
-                 ▼
-        ┌─────────────────┐
-        │ Microservicio   │
-        └────────┬────────┘
-                 │
-                 │ Respuesta HTTP
-                 ▼
-        ┌─────────────────┐
-        │  API Gateway    │
-        └────────┬────────┘
-                 │
-                 ▼
-        ┌─────────────────┐
-        │    Usuario      │
-        └─────────────────┘
-
+        ┌───────────────────┐
+        │    BFF Service    │
+        │   Puerto 8087     │
+        └─────────┬─────────┘
+                  │
+                  │ Consulta información
+                  │ desde múltiples servicios
+                  ▼
+     ┌─────────────────────────────────┐
+     │      Microservicios Backend     │
+     ├─────────────────────────────────┤
+     │ usuarios-service                │
+     │ obtiene datos del usuario       │
+     │                                 │
+     │ mascotas-service                │
+     │ obtiene mascotas del usuario    │
+     │                                 │
+     │ notificaciones-service          │
+     │ obtiene notificaciones          │
+     └───────────────┬─────────────────┘
+                     │
+                     │ Consulta sus BD
+                     ▼
+     ┌─────────────────────────────────┐
+     │ Bases de Datos Independientes   │
+     │                                 │
+     │ usuarios-db                     │
+     │ mascotas-db                     │
+     │ notificaciones-db               │
+     └───────────────┬─────────────────┘
+                     │
+                     │ Respuestas
+                     ▼
+        ┌───────────────────┐
+        │    BFF Service    │
+        ├───────────────────┤
+        │ Construye un único│
+        │ DashboardDTO      │
+        └─────────┬─────────┘
+                  │
+                  │ Respuesta JSON
+                  ▼
+        ┌───────────────────┐
+        │   API Gateway     │
+        └─────────┬─────────┘
+                  │
+                  ▼
+        ┌───────────────────┐
+        │    Frontend       │
+        │ HomePrincipal.jsx │
+        └─────────┬─────────┘
+                  │
+                  ▼
+        ┌───────────────────┐
+        │     Usuario       │
+        └───────────────────┘
 ```
