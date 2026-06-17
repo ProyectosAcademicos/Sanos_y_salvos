@@ -119,4 +119,79 @@ public class ServiceUsuarioTest {
                 .deleteById("12345678-9");
     }
 
+    @Test
+    void debeActualizarUsuario() {
+    
+        Usuario usuarioExistente = new Usuario();
+        usuarioExistente.setRut("12345678-9");
+        usuarioExistente.setNombre("Jonathan");
+    
+        Usuario usuarioActualizado = new Usuario();
+        usuarioActualizado.setNombre("Pedro");
+        usuarioActualizado.setEmail("pedro@gmail.com");
+        usuarioActualizado.setContrasena("1234");
+    
+        when(repositoryUsuario.findByRut("12345678-9"))
+                .thenReturn(Optional.of(usuarioExistente));
+    
+        when(passwordEncoder.encode("1234"))
+                .thenReturn("HASH123");
+    
+        when(repositoryUsuario.save(any(Usuario.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+    
+        Usuario resultado =
+                serviceUsuario.actualizarUsuario(
+                        "12345678-9",
+                        usuarioActualizado
+                );
+    
+        assertNotNull(resultado);
+        assertEquals("Pedro", resultado.getNombre());
+        assertEquals("pedro@gmail.com", resultado.getEmail());
+        assertEquals("HASH123", resultado.getContrasena());
+    
+        verify(repositoryUsuario).save(any(Usuario.class));
+    }
+
+    @Test
+        void noDebeActualizarUsuarioInexistente() {
+
+        Usuario usuarioActualizado = new Usuario();
+
+        when(repositoryUsuario.findByRut("99999999-9"))
+                .thenReturn(Optional.empty());
+
+        Usuario resultado =
+                serviceUsuario.actualizarUsuario(
+                        "99999999-9",
+                        usuarioActualizado
+                );
+
+        assertNull(resultado);
+
+        verify(repositoryUsuario, never())
+                .save(any());
+        }
+
+        @Test
+        void noDebeEliminarUsuarioInexistente() {
+
+        when(repositoryUsuario.findByRut("99999999-9"))
+                .thenReturn(Optional.empty());
+
+        Exception exception =
+                assertThrows(
+                        Exception.class,
+                        () -> serviceUsuario.eliminarUsuario("99999999-9")
+                );
+
+        assertEquals(
+                "El RUT no existe en el sistema.",
+                exception.getMessage()
+        );
+
+        verify(repositoryUsuario, never())
+                .deleteById(anyString());
+}
 }
