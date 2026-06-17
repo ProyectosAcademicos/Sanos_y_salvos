@@ -84,4 +84,29 @@ public class NotificacionControllerTest {
                                 .value("Match encontrado")
                 );
     }
+
+    @Test
+        void debeMarcarComoLeida() throws Exception {
+
+        NotificacionDTO dto = new NotificacionDTO();
+        dto.setId(1L);
+        dto.setMensaje("Leída");
+
+        when(service.marcarComoLeida(1L)).thenReturn(dto);
+
+        mockMvc.perform(
+                patch("/api/notificaciones/1/leida")
+        )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.mensaje").value("Leída"));
+        }
+
+        @Test
+        void debeEliminarNotificacion() throws Exception {
+
+        mockMvc.perform(
+                delete("/api/notificaciones/1")
+        )
+                .andExpect(status().isNoContent());
+        }
 }
