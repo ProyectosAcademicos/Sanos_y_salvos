@@ -1,6 +1,5 @@
 
-
-export async function register(rut, nombre, email, contrasena, telefono, direccion) {
+export async function register(rut, nombre, email, contrasena, telefono, direccion, tipoUsuario) {
 
     if (
         rut === "" ||
@@ -29,7 +28,7 @@ export async function register(rut, nombre, email, contrasena, telefono, direcci
       contrasena,
       telefono,
       direccion,
-      tipoUsuario: "DUEÑO"
+      tipoUsuario
     })
   });
 

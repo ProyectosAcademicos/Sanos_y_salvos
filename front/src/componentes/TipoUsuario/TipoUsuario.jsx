@@ -13,6 +13,7 @@ const TipoUsuario = () => {
             alert("Seleccione un tipo de usuario");
             return;
         }
+        console.log("TIPO DE USUARIO SELECCIONADO:", tipoUsuario)
 
         navigate(`/login/${tipoUsuario}`);
     };
@@ -31,20 +32,26 @@ const TipoUsuario = () => {
                 >
                     <option value="">Seleccione un tipo de usuario</option>
                     <option value="administrador">Administrador</option>
-                    <option value="cliente">Cliente</option>
+                    <option value="dueño de mascota">Dueño de mascota</option>
                     <option value="agente_externo">Agente Externo</option>
-                    <option value="supervisor">Supervisor</option>
-                    <option value="operador">Operador</option>
                 </select>
 
-                <div className="flex w-[300px] justify-center">
+                <div className="flex flex-col w-[300px] justify-center gap-6 border border-gray-300">
                     <button
                         onClick={ingresar}
-                        className="btnIngresar"
+                        className="btnIngresar bg-[#F5F7FA] p-4 rounded-[20px] font-bold text-[#1A1A1A] hover:bg-[#E0E0E0] transition-colors duration-300"
                     >
                         Ingresar
                     </button>
+                    <button
+                        onClick={() => navigate(`/login`)}
+                        className="btnIngresar bg-[#F5F7FA] p-4 rounded-[20px] font-bold text-[#1A1A1A] hover:bg-[#E0E0E0] transition-colors duration-300   "
+                        
+                    >
+                        Volver
+                    </button>
                 </div>
+        
 
             </div>
 

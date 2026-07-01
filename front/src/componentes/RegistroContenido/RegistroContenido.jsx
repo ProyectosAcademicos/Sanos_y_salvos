@@ -2,6 +2,7 @@ import './RegistroContenido.css';
 import { useNavigate } from 'react-router-dom';
 import { register } from "../../services/registerService";
 import { useState } from 'react';
+import { useParams } from "react-router-dom";
 
 // Cambiamos a Mayúscula la primera letra
 const RegistroContenido = () => {
@@ -14,15 +15,26 @@ const RegistroContenido = () => {
     const [direccion, setDireccion] = useState("");
 
     const navigate = useNavigate();
+    const { tipoUsuario } = useParams();
+
+    
 
     const handleRegistro = async (e) => {
         e.preventDefault();
         try {
-            const data = await register(rut, nombre, email, contrasena, telefono, direccion);
+            const data = await register(
+                rut,
+                nombre,
+                email,
+                contrasena,
+                telefono,
+                direccion,
+                tipoUsuario
+            );
             localStorage.setItem("token", data.token);
             alert("Registro exitoso");
             console.log("REGISTRO EJECUTADO");
-            navigate('/login');
+            navigate(`/login/${tipoUsuario}`);
         } catch (error) {
             console.error('Error al registrar usuario:', error);
         }
@@ -42,7 +54,7 @@ const RegistroContenido = () => {
                 </div>
                 <div className="contenedorBoton">
                     <button type="submit" className="boton-registrar">Registrar</button>
-                    <button type="button" className="boton-volver" onClick={() => navigate('/login')}>
+                    <button type="button" className="boton-volver" onClick={() => navigate(`/login/${tipoUsuario}`)}>
                         Volver
                     </button>
                 </div>

@@ -20,9 +20,9 @@ function App() {
           {/* Rutas generales */}
           <Route path="/" element={<Bienvenida />} />
           <Route path="/home" element={<HomePrincipal />} />
-          <Route path="/home-cliente" element={<HomeCliente />} />
+          <Route path="/home-cliente/:tipoUsuario" element={<HomeCliente />} />
           {/* <Route path="/login" element={<Login />} /> */}
-          <Route path="/registro" element={<Registro />} />
+          <Route path="/registro/:tipoUsuario" element={<Registro />} />
           <Route path="/mascota" element={<Mascota />} />
           <Route path="/reportar" element={<Reporte />} />
           <Route path="/estado" element={<Estado />} />

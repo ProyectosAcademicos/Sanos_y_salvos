@@ -23,7 +23,7 @@ const LoginContenido = () => {
             localStorage.setItem("rut", rut);
             alert("Inicio de sesión exitoso");
             console.log("LOGIN EJECUTADO");
-            navigate("/home-cliente");
+            navigate(`/home-cliente/${tipoUsuario}`);
 
         } catch (error) {
             alert("Error al iniciar sesión: Usuario no registrado o contraseña incorrecta");
@@ -34,9 +34,7 @@ const LoginContenido = () => {
     const nombresRoles = {
         administrador: "Administrador",
         cliente: "Cliente",
-        agente_externo: "Agente Externo",
-        supervisor: "Supervisor",
-        operador: "Operador",
+        agente_externo: "Agente Externo"
     };
 
     const titulo = nombresRoles[tipoUsuario] || "Usuario";
@@ -71,7 +69,7 @@ const LoginContenido = () => {
                     type="button"
                     className="botonRegistrarse"
                     onClick={() => {
-                        navigate("/registro");
+                        navigate(`/registro/${tipoUsuario}`);
                     }}
                 >
                     Registrarse
