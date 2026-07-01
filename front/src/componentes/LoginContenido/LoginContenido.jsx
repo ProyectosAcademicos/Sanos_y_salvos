@@ -5,9 +5,11 @@ import {  useState } from 'react';
 
 import { login } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const LoginContenido = () => {
-
+    
+    const { tipoUsuario } = useParams();
     const [rut, setRut] = useState("");
     const [contrasena, setContrasena] = useState("");
 
@@ -28,10 +30,20 @@ const LoginContenido = () => {
             console.error("Error al iniciar sesión:", error);
         }
     }
+    
+    const nombresRoles = {
+        administrador: "Administrador",
+        cliente: "Cliente",
+        agente_externo: "Agente Externo",
+        supervisor: "Supervisor",
+        operador: "Operador",
+    };
+
+    const titulo = nombresRoles[tipoUsuario] || "Usuario";
 
     return(
         <div>
-            <h1>Login</h1>
+            <h1>Login {titulo}</h1>
             <form onSubmit={handleLogin}>
                 <div className='contenedorLogin'>
                     <input 

@@ -25,7 +25,7 @@ const HeaderCliente = () => {
                 <nav>
                     <ul className="flex gap-6">
                         <li><a href="/">Home</a></li>
-                        <li><a href="/">Iniciar sesión</a></li>
+                        <li><a href="/mascota">Registrar Mascota</a></li>
                         <li><a href="/about">Reportar</a></li>
                         <li><a href="/contact">Contacto</a></li>
                         <li><a href="/">Cerrar</a></li>

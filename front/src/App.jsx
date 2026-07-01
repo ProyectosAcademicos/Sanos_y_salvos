@@ -6,6 +6,7 @@ import Mascota from "./pages/mascota/mascota";
 import HomePrincipal from "./pages/homePrincipal/Cliente/homePrincipal";
 import Reporte from "./pages/reporte/reporte";
 import Estado from "./pages/Estado/estado";
+import TipoUsuario from "./componentes/TipoUsuario/TipoUsuario";
 import Cerrar from "./pages/Bienvenida/home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context//AuthContext/AuthContext";
@@ -20,11 +21,13 @@ function App() {
           <Route path="/" element={<Bienvenida />} />
           <Route path="/home" element={<HomePrincipal />} />
           <Route path="/home-cliente" element={<HomeCliente />} />
-          <Route path="/login" element={<Login />} />
+          {/* <Route path="/login" element={<Login />} /> */}
           <Route path="/registro" element={<Registro />} />
           <Route path="/mascota" element={<Mascota />} />
           <Route path="/reportar" element={<Reporte />} />
           <Route path="/estado" element={<Estado />} />
+          <Route path="/tipo-usuario" element={<TipoUsuario />} />
+          <Route path="/login/:tipoUsuario" element={<Login />} />
           <Route path="/cerrar" element={<Cerrar />} />
         </Routes>
       </Router>

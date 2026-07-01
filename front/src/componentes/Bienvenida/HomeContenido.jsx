@@ -14,7 +14,7 @@ const HomeContenido = () => {
                 <div className="h-screen flex flex-col items-center justify-center p-4 gap-8">
                     <h1>Bienvenido a Sanos y Salvos</h1>
                     <div className="flex w-[300px] p-[19px_30px] justify-center items-center gap-2 rounded-[20px] border border-gray-300 bg-[#F5F7FA]">
-                        <button onClick={() => window.location.href = '/login'} className="btnIngresar">Ingresar</button>
+                        <button onClick={() => window.location.href = '/tipo-usuario'} className="btnIngresar">Ingresar</button>
                     </div>
                 </div>
             </div>  
