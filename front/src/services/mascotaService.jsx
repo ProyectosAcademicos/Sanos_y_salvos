@@ -49,3 +49,20 @@ export async function registrarMascota(nombre, tipo, raza, edad, tamano, descrip
 
     return response.json();
 }
+
+export async function obtenerMascotas() {
+    const token = localStorage.getItem("token");
+
+    const response = await fetch("http://localhost:8081/api/mascotas", {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error("No fue posible obtener las mascotas");
+    }
+
+    return response.json();
+}

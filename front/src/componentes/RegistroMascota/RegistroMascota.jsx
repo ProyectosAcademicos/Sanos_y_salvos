@@ -2,10 +2,12 @@ import './RegistroMascota.css'
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { registrarMascota } from '../../services/mascotaService';
+import { useParams } from "react-router-dom";
 
 // Formulario de registro de mascota
 const RegistroMascota = () => {
 
+    const { tipoUsuario } = useParams();
     const [nombre, setNombre] = useState("");
     const [tipo, setTipo] = useState("");
     const [raza, setRaza] = useState("");
@@ -19,8 +21,8 @@ const RegistroMascota = () => {
         e.preventDefault();
        try{
         await registrarMascota(nombre, tipo, raza, edad, tamaño, descripcion);
-        alert("Mascota registrada exitosamente");
-        navigate('/home-cliente');
+        alert("Mascota registrada exitosamente. Buscaremos en nuestra base de datos si hay reportes de mascotas perdidas que coincidan con la información proporcionada y te notificaremos.");
+        navigate(`/home-cliente/${tipoUsuario}`);
        } catch (error) {
         alert("Error al registrar mascota: " + error.message);
         console.error("Error al registrar mascota:", error);
@@ -77,7 +79,7 @@ const RegistroMascota = () => {
                 </div>
                 <div className="contenedorBoton">
                     <button type="submit" className="boton-registrar">Registrar</button>
-                    <button type="button" className="boton-volver" onClick={() => navigate('/home-cliente')}>
+                    <button type="button" className="boton-volver" onClick={() => navigate(`/home-cliente/${tipoUsuario}`)}>
                         Volver
                     </button>
                 </div>

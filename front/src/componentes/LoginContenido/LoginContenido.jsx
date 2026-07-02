@@ -33,7 +33,7 @@ const LoginContenido = () => {
     
     const nombresRoles = {
         administrador: "Administrador",
-        cliente: "Cliente",
+        Dueño_mascota: "Dueño Mascota",
         agente_externo: "Agente Externo"
     };
 
