@@ -66,3 +66,4 @@ export async function obtenerMascotas() {
 
     return response.json();
 }
+
