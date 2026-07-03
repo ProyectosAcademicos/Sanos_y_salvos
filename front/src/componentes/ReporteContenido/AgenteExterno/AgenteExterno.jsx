@@ -1,10 +1,10 @@
-import "./ReporteContenido.css";
+import "./AgenteExterno.css";
 import { useEffect, useState } from "react";
-import { registrarReporte } from "../../services/reporteService";
-import { obtenerMascotas } from "../../services/mascotaService";
+import { registrarReporte } from "../../../services/reporteService";
+import { obtenerMascotas } from "../../../services/mascotaService";
 import { useNavigate } from "react-router-dom";
 
-const ReporteContenido = () => {
+const AgenteExterno = () => {
   const [mascotas, setMascotas] = useState([]);
   const [idMascota, setIdMascota] = useState("");
 
@@ -28,7 +28,6 @@ const ReporteContenido = () => {
     cargarMascotas();
   }, []);
   
-
   const handleLimpiar = () => {
     setIdMascota("");
     setUbicacion("");
@@ -136,4 +135,4 @@ const ReporteContenido = () => {
   );
 };
 
-export default ReporteContenido;
+export default AgenteExterno;

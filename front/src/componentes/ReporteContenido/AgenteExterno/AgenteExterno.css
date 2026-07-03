@@ -1,0 +1,156 @@
+/* =========================
+   LIGHT MODE (DEFAULT)
+========================= */
+:root {
+  /* Primary */
+  --color-primary: #2BCE71;
+  --color-primary-alt: #3498DB;
+
+  /* Backgrounds */
+  --color-bg: #F9FCFF;
+  --color-card: #F5F7FA;
+  --color-border: #D1D5DB;
+
+  /* Text */
+  --color-text: #2C3E50;
+  --color-text-secondary: #E5E5E5;
+
+  /* Icons */
+  --color-icon: #243B51;
+
+  /* Alerts */
+  --color-error: #E74C3C;
+  --color-warning: #F39C12;
+  --color-pending: #F39C12;
+
+  /* Accent */
+  --color-accent: #A3E4D7;
+
+  /* Typography */
+  --font-family: "Roboto", sans-serif;
+
+  --h1-size: 38px;
+  --h2-size: 32px;
+  --h3-size: 30px;
+  --h4-size: 28px;
+}
+
+/* =========================
+   DARK MODE
+========================= */
+.dark-mode {
+  /* Primary */
+  --color-primary: #2ECC71;
+  --color-primary-alt: #5DADE2;
+
+  /* Backgrounds */
+  --color-bg: #121417;
+  --color-card: #1C1F24;
+  --color-border: #2A2F36;
+
+  /* Text */
+  --color-text: #2A2F36;
+  --color-text-secondary: #E5E7EB;
+
+  /* Icons */
+  --color-icon: #B6DBFF;
+
+  /* Alerts */
+  --color-error: #FF5C5C;
+  --color-warning: #FFA94D;
+  --color-pending: #FFD43B;
+
+  /* Accent */
+  --color-accent: #A3E4D7;
+}
+
+.contenedor-reporte {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: 70vh;
+}
+
+.contenedor-reporte h1 {
+    color: #2C3E50;
+    font-family: 'Roboto', sans-serif;
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.form-estilo-visual {
+    background-color: #F8F9FA; /* Fondo muy sutil como en el diseño */
+    border: 1px solid #E9ECEF;
+    padding: 40px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contenedor-inputs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.input-bajo {
+    border: none;
+    border-bottom: 1px solid #D1D5DB;
+    background: transparent;
+    outline: none;
+    padding: 10px 5px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #4B5563;
+    width: 100%;
+}
+
+.area-texto {
+    resize: none;
+    height: 80px;
+}
+
+.contenedor-acciones {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.contenedor-acciones-secundarias{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.btn-informar {
+    background-color: #F5F7FA;
+    border: 1px solid #D1D5DB;
+    border-radius: 15px;
+    color: #2C3E50;
+    font-size: 20px;
+    padding: 12px 60px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-informar:hover {
+    background-color: #E5E7EB;
+}
+
+.btn-limpiar {
+    background: none;
+    border: none;
+    color: #2C3E50;
+    font-size: 22px;
+    text-decoration: none; /* Según la imagen "Limpiar" no tiene subrayado, pero es grande */
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+}

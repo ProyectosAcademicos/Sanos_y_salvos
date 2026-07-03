@@ -21,7 +21,7 @@ const RegistroMascota = () => {
         e.preventDefault();
        try{
         await registrarMascota(nombre, tipo, raza, edad, tamaño, descripcion);
-        alert("Mascota registrada exitosamente. Buscaremos en nuestra base de datos si hay reportes de mascotas perdidas que coincidan con la información proporcionada y te notificaremos.");
+        alert("Mascota registrada exitosamente.");
         navigate(`/home-cliente/${tipoUsuario}`);
        } catch (error) {
         alert("Error al registrar mascota: " + error.message);

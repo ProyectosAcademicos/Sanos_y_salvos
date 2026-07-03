@@ -23,7 +23,11 @@ const LoginContenido = () => {
             localStorage.setItem("rut", rut);
             alert("Inicio de sesión exitoso");
             console.log("LOGIN EJECUTADO");
-            navigate(`/home-cliente/${tipoUsuario}`);
+            if (tipoUsuario === "agente_externo") {
+                navigate("/home-agente-externo");
+            } else {
+                navigate(`/home-cliente/${tipoUsuario}`);
+            }
 
         } catch (error) {
             alert("Error al iniciar sesión: Usuario no registrado o contraseña incorrecta");

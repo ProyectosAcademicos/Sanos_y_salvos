@@ -40,9 +40,17 @@ const RegistroContenido = () => {
         }
     };
 
+    const nombresRoles = {
+        administrador: "Administrador",
+        Dueño_mascota: "Dueño Mascota",
+        agente_externo: "Agente Externo"
+    };
+
+    const nombreRole = nombresRoles[tipoUsuario] || tipoUsuario;
+
     return (
         <div className="contenedorForm">
-            <h1>Registro de usuario</h1>
+            <h1>Registro de {nombreRole     }</h1>
             <form className="registro-form" onSubmit={handleRegistro}>
                 <div className="contenedorDatos">
                     <input type="text" placeholder="Rut" className="input-linea" value={rut} onChange={(e) => setRut(e.target.value)} />

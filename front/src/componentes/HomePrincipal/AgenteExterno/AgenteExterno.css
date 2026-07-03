@@ -1,0 +1,151 @@
+/* =========================
+   LIGHT MODE (DEFAULT)
+========================= */
+:root {
+  /* Primary */
+  --color-primary: #2BCE71;
+  --color-primary-alt: #3498DB;
+
+  /* Backgrounds */
+  --color-bg: #F9FCFF;
+  --color-card: #F5F7FA;
+  --color-border: #D1D5DB;
+
+  /* Text */
+  --color-text: #2C3E50;
+  --color-text-secondary: #E5E5E5;
+
+  /* Icons */
+  --color-icon: #243B51;
+
+  /* Alerts */
+  --color-error: #E74C3C;
+  --color-warning: #F39C12;
+  --color-pending: #F39C12;
+
+  /* Accent */
+  --color-accent: #A3E4D7;
+
+  /* Typography */
+  --font-family: "Roboto", sans-serif;
+
+  --h1-size: 38px;
+  --h2-size: 32px;
+  --h3-size: 30px;
+  --h4-size: 28px;
+}
+
+/* =========================
+   DARK MODE
+========================= */
+.dark-mode {
+  /* Primary */
+  --color-primary: #2ECC71;
+  --color-primary-alt: #5DADE2;
+
+  /* Backgrounds */
+  --color-bg: #121417;
+  --color-card: #1C1F24;
+  --color-border: #2A2F36;
+
+  /* Text */
+  --color-text: #2A2F36;
+  --color-text-secondary: #E5E7EB;
+
+  /* Icons */
+  --color-icon: #B6DBFF;
+
+  /* Alerts */
+  --color-error: #FF5C5C;
+  --color-warning: #FFA94D;
+  --color-pending: #FFD43B;
+
+  /* Accent */
+  --color-accent: #A3E4D7;
+}
+
+/* Contenedor principal para centrar todo verticalmente */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    min-height: 80vh;
+}
+
+.home-title {
+    color: #2C3E50;
+    font-family: 'Roboto', sans-serif;
+    font-size: 50px; /* Ajustado al tamaño de la imagen */
+    margin-bottom: 40px;
+}
+
+.home-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    width: 100%;
+    max-width: 1100px;
+}
+
+/* Estilo de la imagen con bordes redondeados */
+.portada-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Ajuste para la imagen */
+.portada-img {
+    width: 100%;
+    max-width: 650px; 
+    height: auto;
+    border-radius: 30px;
+    object-fit: cover;
+    /* Un pequeño efecto de sombra la hace resaltar más */
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.1); 
+}
+
+/* Columna de botones */
+.botones-columna {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: flex-start;
+}
+
+
+/* Ajuste para los botones */
+.btn-home {
+    background-color: #F5F7FA;
+    border: 1px solid #D1D5DB;
+    border-radius: 15px;
+    color: #2C3E50;
+    font-family: 'Roboto', sans-serif;
+    font-size: 22px;
+    padding: 20px 30px;
+    min-width: 250px; 
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-home:hover {
+    background-color: #e2e8f0;
+}
+
+/* Responsive para celulares */
+@media (max-width: 768px) {
+    .home-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+    .portada-wrapper {
+        justify-content: center;
+    }
+    .botones-columna {
+        align-items: center;
+    }
+}

@@ -7,6 +7,7 @@ import HomePrincipal from "./pages/homePrincipal/Cliente/homePrincipal";
 import Reporte from "./pages/reporte/reporte";
 import Estado from "./pages/Estado/estado";
 import TipoUsuario from "./componentes/TipoUsuario/TipoUsuario";
+import HomeAgenteExterno from "./pages/homePrincipal/AgenteExterno/agenteExterno";
 import Cerrar from "./pages/Bienvenida/home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context//AuthContext/AuthContext";
@@ -28,6 +29,7 @@ function App() {
           <Route path="/estado" element={<Estado />} />
           <Route path="/tipo-usuario" element={<TipoUsuario />} />
           <Route path="/login/:tipoUsuario" element={<Login />} />
+          <Route path="/home-agente-externo" element={<HomeAgenteExterno />} />
           <Route path="/cerrar" element={<Cerrar />} />
         </Routes>
       </Router>
