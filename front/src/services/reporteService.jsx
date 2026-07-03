@@ -34,3 +34,40 @@ export async function registrarReporte(
 
     return JSON.parse(texto);
 }
+
+export async function registrarMascotaAgente(
+    rutUsuario,
+    idMascota,
+    ubicacionPerdida,
+    fechaPerdida,
+    descripcion
+) {
+
+    const body = {
+        rutUsuario,
+        idMascota: "NN",
+        ubicacionPerdida,
+        fechaPerdida,
+        descripcion,
+        estado: "Activo"
+    };
+
+    const response = await fetch("http://localhost:8081/reportes", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+    });
+
+    console.log(body)
+    const texto = await response.text();
+    console.log("Código:", response.status);
+    console.log("Respuesta:", texto);
+
+    if (!response.ok) {
+        throw new Error("No fue posible registrar la mascota.");
+    }
+
+    return JSON.parse(texto);
+}

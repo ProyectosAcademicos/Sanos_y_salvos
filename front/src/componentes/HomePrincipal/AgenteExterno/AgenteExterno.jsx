@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 
+
+
 const HomeAgenteExterno = () => {
     const navigate = useNavigate();
 
@@ -36,7 +38,7 @@ const HomeAgenteExterno = () => {
                 </div>
 
                 <div className="botones-columna">
-                    <button onClick={() => navigate('/reportar')} className="btn-home">
+                    <button onClick={() => navigate('/reporte-externo')} className="btn-home">
                         Reportar
                     </button>
                 </div>

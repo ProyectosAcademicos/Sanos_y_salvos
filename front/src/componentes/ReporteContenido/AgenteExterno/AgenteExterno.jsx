@@ -1,12 +1,13 @@
 import "./AgenteExterno.css";
-import { useEffect, useState } from "react";
-import { registrarReporte } from "../../../services/reporteService";
-import { obtenerMascotas } from "../../../services/mascotaService";
+import { useState } from "react";
+// import { registrarReporte } from "../../../services/reporteService";
+import { registrarMascotaAgente } from "../../../services/reporteService";
 import { useNavigate } from "react-router-dom";
 
 const AgenteExterno = () => {
-  const [mascotas, setMascotas] = useState([]);
-  const [idMascota, setIdMascota] = useState("");
+  // const [mascotas, setMascotas] = useState([]);
+  // const [idMascota, setIdMascota] = useState("");
+  // const [idUsuario, setIdUsuario] = useState("12345678-9");
 
   const [ubicacion, setUbicacion] = useState("");
   const [fecha, setFecha] = useState("");
@@ -14,45 +15,51 @@ const AgenteExterno = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const cargarMascotas = async () => {
-      try {
-        const data = await obtenerMascotas();
-        setMascotas(data);
-      } catch (error) {
-        console.error(error);
-        alert("No fue posible cargar las mascotas.");
-      }
-    };
+  // useEffect(() => {
+  //   const cargarMascotas = async () => {
+  //     try {
+  //       const data = await obtenerMascotas();
+  //       // setMascotas(data);
+  //     } catch (error) {
+  //       console.error(error);
+  //       alert("No fue posible cargar las mascotas.");
+  //     }
+  //   };
 
-    cargarMascotas();
-  }, []);
+  //   cargarMascotas();
+  // }, []);
   
   const handleLimpiar = () => {
-    setIdMascota("");
-    setUbicacion("");
-    setFecha("");
-    setDescripcion("");
+      setUbicacion("");
+      setFecha("");
+      setDescripcion("");
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+      e.preventDefault();
 
-    try {
-      await registrarReporte(
-        "12345678-9",
-        Number(idMascota),
-        ubicacion,
-        fecha,
-        descripcion
-      );
+      try {
 
-      alert("Reporte realizado correctamente. Buscaremos en nuestra base de datos si hay reportes de mascotas perdidas que coincidan con la información proporcionada y te notificaremos");
-      navigate("/home");
-    } catch (error) {
-      console.error(error);
-      alert(error.message);
-    }
+          // Crear mascota automáticamente
+          //const mascota = await registrarMascotaAgente();
+
+          //console.log(mascota);
+          // Registrar reporte utilizando el id generado
+          await registrarMascotaAgente(
+              "12345678-9",
+              "NN",
+              ubicacion,
+              fecha,
+              descripcion
+          );
+
+          alert("Reporte realizado correctamente.");
+          navigate("/home-agente-externo");
+
+      } catch (error) {
+          console.error(error);
+          alert(error.message);
+      }
   };
 
   return (
@@ -66,7 +73,7 @@ const AgenteExterno = () => {
       >
         <div className="contenedor-inputs">
 
-          <select
+          {/* <select
             className="input-bajo"
             value={idMascota}
             onChange={(e) => setIdMascota(e.target.value)}
@@ -79,7 +86,7 @@ const AgenteExterno = () => {
                 {mascota.nombre}
               </option>
             ))}
-          </select>
+          </select> */}
 
           <input
             type="text"
@@ -124,7 +131,7 @@ const AgenteExterno = () => {
             <button
               type="button"
               className="btn-informar"
-              onClick={() => navigate("/home")}
+              onClick={() => navigate("/home-agente-externo")}
             >
               Volver
             </button>
