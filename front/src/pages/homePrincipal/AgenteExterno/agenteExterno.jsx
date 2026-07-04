@@ -1,4 +1,4 @@
-import Header from "../../../componentes/header/Cliente/HeaderCliente";
+import Header from "../../../componentes/header/AgenteExterno/AgenteExterno";
 import Footer from "../../../componentes/footer/footerGeneral/footerGeneral";
 import HomePrincipal from "../../../componentes/HomePrincipal/AgenteExterno/AgenteExterno";
 
