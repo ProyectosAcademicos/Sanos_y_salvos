@@ -57,10 +57,11 @@ const HeaderCliente = () => {
             </button>
 
             {menuOpen && (
-                <div className="menu-mobile">
+                <div className="menu-mobile gap-2">
                     <a href="/">Home</a>
                     <a href="/mascota">Registrar Mascota</a>
                     <a href="/contacto">Contacto</a>
+                    <a href="/cerrar">Cierre</a>
                 </div>
             )}
 

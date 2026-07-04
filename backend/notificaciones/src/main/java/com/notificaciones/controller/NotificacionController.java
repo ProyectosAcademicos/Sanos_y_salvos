@@ -15,7 +15,7 @@ public class NotificacionController {
     @Autowired
     private NotificacionService notificacionService;
 
-    // Simula recibir el evento MatchEncontrado
+    // Simula recibir el evento MatchEncontrado 
     @PostMapping("/evento/match")
     public ResponseEntity<NotificacionDTO> recibirEventoMatch(
             @RequestParam String idUsuario,

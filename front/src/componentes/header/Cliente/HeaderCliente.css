@@ -11,6 +11,10 @@
     padding: 20px;
 }
 
+.menu-mobile{
+    gap: 100px;
+}
+
 .logo{
     width: 150px;
     height: auto;
