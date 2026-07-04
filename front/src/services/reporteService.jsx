@@ -13,7 +13,7 @@ export async function registrarReporte(
         fechaPerdida,
         descripcion,
         estado: "Activo",
-        tipoReporte: "perdida"
+        tipoReporte: "PERDIDA"
     };
 
     console.log("esto se manda al backend:", body);
@@ -53,7 +53,7 @@ export async function registrarMascotaAgente(
         fechaPerdida,
         descripcion,
         estado: "Activo",
-        tipoReporte: "encontrada"
+        tipoReporte: "ENCONTRADA"
     };
 
     const response = await fetch("http://localhost:8081/reportes", {

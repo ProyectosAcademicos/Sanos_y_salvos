@@ -11,6 +11,7 @@ import com.reportes.factory.ReporteFactory;
 import com.reportes.factory.ReporteFactoryProvider;
 import com.reportes.factory.ReporteFactory;
 import com.reportes.strategy.EstadoReporteStrategy;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -26,6 +27,12 @@ public class ReporteService {
     @Autowired
     private RepositoryReportes repository;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
+    private final String MATCHING_URL =
+        "http://matching-service:8080/api/matching/generar";
+
     //obtener todos los reportes
     public List<Reporte> buscarReportes() {
         return repository.findAll();
@@ -36,12 +43,36 @@ public class ReporteService {
         return repository.findByEstado("activo");
     }
 
-    public Reporte agregarReporte(Reporte nuevoReporte) { // El estado se establece automáticamente a "activo" al crear el reporte
+    public Reporte agregarReporte(Reporte nuevoReporte) {
 
-    ReporteFactory factory = factoryProvider.obtenerFactory("activo");
-    Reporte reporteCreado = factory.crearReporte(nuevoReporte); 
+        // 1. Crear el reporte usando tu factory
+        ReporteFactory factory = factoryProvider.obtenerFactory("activo");
+        Reporte reporteCreado = factory.crearReporte(nuevoReporte);
 
-    return repository.save(reporteCreado); // Guarda el reporte con el estado "activo" en la base de datos
+        // 2. Guardar en base de datos
+        Reporte reporteGuardado = repository.save(reporteCreado);
+
+        // 3. Preparar llamada a Matching Service
+        try {
+            String url = MATCHING_URL
+                    + "?idReporte=" + reporteGuardado.getIdReporte()
+                    + "&tipoReporte=" + reporteGuardado.getTipoReporte()
+                    + "&rutUsuario=" + reporteGuardado.getRutUsuario();
+
+            System.out.println("📡 Enviando evento a Matching: " + url);
+
+            restTemplate.postForObject(
+                    url,
+                    null,
+                    String.class
+            );
+
+        } catch (Exception e) {
+            System.out.println("Error llamando a Matching: " + e.getMessage());
+        }
+
+        // 4. Retornar reporte
+        return reporteGuardado;
     }
 
     public Reporte obtenerReportePorId(String idReporte) {

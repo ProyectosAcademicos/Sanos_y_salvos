@@ -42,12 +42,12 @@ public class MatchingService {
 
         System.out.println("📩 Evento recibido en Matching: " + tipoReporte);
 
-        // SOLO ACTUAMOS SI ES ENCONTRADO
-        if (!"ENCONTRADO".equalsIgnoreCase(tipoReporte)) {
+        // SOLO ACTUAMOS SI ES ENCONTRADA
+        if (!"ENCONTRADA".equalsIgnoreCase(tipoReporte)) {
             return;
         }
 
-        // 1. Obtener reportes PERDIDA desde Reportes Service
+        // 1. Obtener todas las pérdidas
         ReporteDTO[] reportes = restTemplate.getForObject(
                 REPORTES_URL + "/activos",
                 ReporteDTO[].class
@@ -57,13 +57,48 @@ public class MatchingService {
             return;
         }
 
-        // 2. Filtrar solo pérdidas
         List<ReporteDTO> perdidas = Arrays.stream(reportes)
                 .filter(r -> "PERDIDA".equalsIgnoreCase(r.getTipoReporte()))
                 .toList();
 
-        // 3. Crear coincidencias
+        // 2. Obtener reporte encontrado (DIRECTO)
+        ReporteDTO encontrado = restTemplate.getForObject(
+                REPORTES_URL + "/" + idReporte,
+                ReporteDTO.class
+        );
+
+        if (encontrado == null) {
+            return;
+        }
+
+        String ubicacionEncontrada = encontrado.getUbicacionPerdida();
+
         for (ReporteDTO perdida : perdidas) {
+
+            if (perdida.getUbicacionPerdida() == null || ubicacionEncontrada == null) {
+                continue;
+            }
+
+            String ubicacionPerdida = perdida.getUbicacionPerdida().trim();
+            String ubicacionEncontradaNormalizada = ubicacionEncontrada.trim();
+
+            System.out.println(
+                    "Comparando -> Perdida: "
+                            + ubicacionPerdida
+                            + " | Encontrada: "
+                            + ubicacionEncontradaNormalizada
+            );
+
+            if (!ubicacionPerdida.equalsIgnoreCase(ubicacionEncontradaNormalizada)) {
+                continue;
+            }
+
+            System.out.println(
+                    " MATCH ENCONTRADO entre "
+                            + perdida.getIdReporte()
+                            + " y "
+                            + idReporte
+            );
 
             Matching match = new Matching();
             match.setRutUsuario(perdida.getRutUsuario());
@@ -73,7 +108,6 @@ public class MatchingService {
 
             Matching guardado = matchingRepository.save(match);
 
-            // 4. Enviar notificación
             enviarNotificacion(guardado, perdida);
         }
     }
