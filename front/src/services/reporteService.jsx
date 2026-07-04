@@ -12,8 +12,11 @@ export async function registrarReporte(
         ubicacionPerdida,
         fechaPerdida,
         descripcion,
-        estado: "Activo"
+        estado: "Activo",
+        tipoReporte: "perdida"
     };
+
+    console.log("esto se manda al backend:", body);
 
     const response = await fetch(
         "http://localhost:8081/reportes",
@@ -49,7 +52,8 @@ export async function registrarMascotaAgente(
         ubicacionPerdida,
         fechaPerdida,
         descripcion,
-        estado: "Activo"
+        estado: "Activo",
+        tipoReporte: "encontrada"
     };
 
     const response = await fetch("http://localhost:8081/reportes", {

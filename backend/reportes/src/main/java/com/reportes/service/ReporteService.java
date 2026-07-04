@@ -58,6 +58,7 @@ public class ReporteService {
         existente.setFechaPerdida(reporteActualizado.getFechaPerdida());
         existente.setDescripcion(reporteActualizado.getDescripcion());
         existente.setEstado(reporteActualizado.getEstado());
+        existente.setTipoReporte(reporteActualizado.getTipoReporte());
 
         return repository.save(existente);
     }
