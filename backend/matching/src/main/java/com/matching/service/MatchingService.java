@@ -40,7 +40,7 @@ public class MatchingService {
     // EVENTO PRINCIPAL
     public void procesarEventoReporteCreado(String idReporte, String tipoReporte, String rutUsuario) {
 
-        System.out.println("📩 Evento recibido en Matching: " + tipoReporte);
+        System.out.println("Evento recibido en Matching: " + tipoReporte);
 
         // SOLO ACTUAMOS SI ES ENCONTRADA
         if (!"ENCONTRADA".equalsIgnoreCase(tipoReporte)) {
