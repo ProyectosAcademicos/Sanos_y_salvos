@@ -8,10 +8,18 @@ import java.util.Optional;
 import java.util.List;
 
 @Repository
-public interface RepositoryReportes extends JpaRepository<Reporte, String> {
+public interface RepositoryReportes
+        extends JpaRepository<Reporte,String>{
 
     Optional<Reporte> findById(String idReporte);
 
     List<Reporte> findByEstado(String estado);
+
+    List<Reporte> findByTipoReporteAndEstado(
+            String tipoReporte,
+            String estado
+    );
+
+    List<Reporte> findByTipoReporte(String tipoReporte);
 
 }

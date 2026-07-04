@@ -14,15 +14,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            .cors(cors -> cors.configurationSource(request -> {
-                CorsConfiguration config = new CorsConfiguration();
-                // ✅ Sin wildcard mezclado, solo orígenes específicos
-                config.setAllowedOrigins(List.of("http://localhost:5173"));
-                config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
-                config.setAllowedHeaders(List.of("*"));
-                config.setAllowCredentials(true);
-                return config;
-            }))
+            // .cors(cors -> cors.configurationSource(request -> {
+            //     CorsConfiguration config = new CorsConfiguration();
+            //     // ✅ Sin wildcard mezclado, solo orígenes específicos
+            //     config.setAllowedOrigins(List.of("http://localhost:5173"));
+            //     config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+            //     config.setAllowedHeaders(List.of("*"));
+            //     config.setAllowCredentials(true);
+            //     return config;
+            // }))
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/**").permitAll()

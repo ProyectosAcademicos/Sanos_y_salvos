@@ -16,6 +16,54 @@
     height: auto;
 }
 
+.noti-bell {
+    position: relative;
+    cursor: pointer;
+    font-size: 22px;
+    margin-left: 15px;
+}
+
+.badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+}
+
+.modal-box {
+    background: white;
+    width: 400px;
+    margin: 80px auto;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.noti {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.noleida {
+    background: #f5f5f5;
+}
+
+.leida {
+    opacity: 0.6;
+}
+
 
 /*  Responsividad */
 @media (max-width: 768px) {
@@ -27,3 +75,4 @@
         width: 100px;
     }
 }
+

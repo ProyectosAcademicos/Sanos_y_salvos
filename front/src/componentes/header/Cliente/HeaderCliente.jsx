@@ -1,57 +1,78 @@
 import './HeaderCliente.css';
-import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { obtenerNotificaciones } from "../../../services/notificacionService";
+import NotificacionesModal from "../../Notificaciones/NotificacionesModal";
 
 const HeaderCliente = () => {
 
-    // const navigate = useNavigate();
-    
     const [menuOpen, setMenuOpen] = useState(false);
+    const [notificaciones, setNotificaciones] = useState([]);
+    const [openNoti, setOpenNoti] = useState(false);
+
+    const rut = localStorage.getItem("rut");
+
+    const cargarNotificaciones = async () => {
+        try {
+            const data = await obtenerNotificaciones(rut);
+            setNotificaciones(data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        if (!rut) return;
+
+        cargarNotificaciones();
+
+        const interval = setInterval(() => {
+            cargarNotificaciones();
+        }, 10000); // cada 10 segundos
+
+        return () => clearInterval(interval);
+    }, [rut]);
+
+    const noLeidas = notificaciones.filter(n => !n.leido).length;
+
     return (
         <header className="header-general">
-            {/* Logo de la empresa */}
-            <img className="logo" src="https://res.cloudinary.com/dr84axabl/image/upload/v1777925023/logo_hwsz7k.png" alt="logo" />
-            <button 
-                onClick={() => setMenuOpen(!menuOpen)}
-                className="md:hidden flex flex-col gap-1"
-            >
-                <span className="w-6 h-0.5 bg-black"></span>
-                <span className="w-6 h-0.5 bg-black"></span>
-                <span className="w-6 h-0.5 bg-black"></span>
-            </button>
 
-            {/* Menú desktop */}
-            <div className="hidden md:block">
-                <nav>
-                    <ul className="flex gap-6">
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/mascota">Registrar Mascota</a></li>
-                        <li><a href="/about">Reportar</a></li>
-                        <li><a href="/contact">Contacto</a></li>
-                        <li><a href="/">Cerrar</a></li>
-                    </ul>
-                </nav>
+            <img
+                className="logo"
+                src="https://res.cloudinary.com/dr84axabl/image/upload/v1777925023/logo_hwsz7k.png"
+                alt="logo"
+            />
+
+            {/* CAMPANA */}
+            <div className="noti-bell" onClick={() => setOpenNoti(true)}>
+                🔔
+                {noLeidas > 0 && (
+                    <span className="badge">{noLeidas}</span>
+                )}
             </div>
 
-            {/* Menú mobile (hamburguesa) */}
+            {/* MENU */}
+            <button onClick={() => setMenuOpen(!menuOpen)}>
+                ☰
+            </button>
+
             {menuOpen && (
-                <div className="absolute top-0 left-0 w-full h-screen bg-white shadow-md md:hidden">
-                    {/* Botón de cierre */}
-                    <button 
-                        onClick={() => setMenuOpen(false)}
-                        className="absolute top-5 right-5 text-2xl font-bold hover:text-red-500 transition-colors"
-                    >X</button>
-                    <nav className="h-full">
-                        <ul className="flex flex-col justify-center items-end h-full gap-4 pr-6">
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/">Iniciar sesión</a></li>
-                            <li><a href="/about">Reportar</a></li>
-                            <li><a href="/contact">Contacto</a></li>
-                            <li><a href="/">Cerrar</a></li>
-                        </ul>
-                    </nav>
+                <div className="menu-mobile">
+                    <a href="/">Home</a>
+                    <a href="/mascota">Registrar Mascota</a>
+                    <a href="/contacto">Contacto</a>
                 </div>
             )}
+
+            {/* MODAL */}
+            {openNoti && (
+                <NotificacionesModal
+                    notificaciones={notificaciones}
+                    onClose={() => setOpenNoti(false)}
+                    onRefresh={cargarNotificaciones}
+                />
+            )}
+
         </header>
     );
 };

@@ -1,15 +1,16 @@
 package com.matching.service;
 
-import com.matching.dto.MatchingDTO;
-import com.matching.factory.MatchingStrategyFactory;
 import com.matching.model.Matching;
 import com.matching.repository.MatchingRepository;
-import com.matching.strategy.MatchingStrategy;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import com.matching.dto.MatchingDTO;
+
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MatchingService {
@@ -18,53 +19,103 @@ public class MatchingService {
     private MatchingRepository matchingRepository;
 
     @Autowired
-    private MatchingStrategyFactory strategyFactory;
+    private RestTemplate restTemplate;
 
-    // --- MÉTODOS DE CONVERSIÓN (Mantener tu DTO limpio con Lombok) ---
+    private final String REPORTES_URL = "http://reportes-service:8080/reportes";
+    private final String NOTIFICACIONES_URL = "http://notificaciones-service:8080/api/notificaciones/evento/match";
+
     private MatchingDTO convertirADTO(Matching matching) {
+
         MatchingDTO dto = new MatchingDTO();
+
         dto.setId(matching.getId());
-        dto.setIdMascota(matching.getIdMascota());
-        dto.setIdUsuario(matching.getIdUsuario());
-        dto.setIdReporte(matching.getIdReporte());
-        dto.setPorcentajeCompatibilidad(matching.getPorcentajeCompatibilidad());
+        dto.setRutUsuario(matching.getRutUsuario());
+        dto.setIdReportePerdida(matching.getIdReportePerdida());
+        dto.setIdReporteEncontrado(matching.getIdReporteEncontrado());
         dto.setFecha(matching.getFecha());
+
         return dto;
     }
 
-    // --- LÓGICA ORIENTADA A EVENTOS (Tablero de GitHub) ---
+    // EVENTO PRINCIPAL
+    public void procesarEventoReporteCreado(String idReporte, String tipoReporte, String rutUsuario) {
 
-    // TAREA GITHUB 1: Recibir evento "ReporteCreado"
-    public void procesarEventoReporteCreado(Long idReporte, Long idMascota, Long idUsuario) {
-        System.out.println("--> EVENTO RECIBIDO: ReporteCreado para el reporte ID: " + idReporte);
+        System.out.println("📩 Evento recibido en Matching: " + tipoReporte);
 
-        // TAREA GITHUB 2: Lógica de coincidencia usando PATRÓN FACTORY + STRATEGY
-        MatchingStrategy estrategia = strategyFactory.getEstrategia("fisicoStrategy");
-        
-        // El patrón Strategy calcula de forma dinámica (en el futuro pasarás objetos reales)
-        Double porcentaje = estrategia.calcular(null, null); 
+        // SOLO ACTUAMOS SI ES ENCONTRADO
+        if (!"ENCONTRADO".equalsIgnoreCase(tipoReporte)) {
+            return;
+        }
 
-        // TAREA GITHUB 3: Generar resultado de coincidencia si supera el umbral
-        if (porcentaje >= 70.0) {
-            Matching match = new Matching(null, idMascota, idUsuario, idReporte, porcentaje, LocalDateTime.now());
+        // 1. Obtener reportes PERDIDA desde Reportes Service
+        ReporteDTO[] reportes = restTemplate.getForObject(
+                REPORTES_URL + "/activos",
+                ReporteDTO[].class
+        );
+
+        if (reportes == null || reportes.length == 0) {
+            return;
+        }
+
+        // 2. Filtrar solo pérdidas
+        List<ReporteDTO> perdidas = Arrays.stream(reportes)
+                .filter(r -> "PERDIDA".equalsIgnoreCase(r.getTipoReporte()))
+                .toList();
+
+        // 3. Crear coincidencias
+        for (ReporteDTO perdida : perdidas) {
+
+            Matching match = new Matching();
+            match.setRutUsuario(perdida.getRutUsuario());
+            match.setIdReportePerdida(perdida.getIdReporte());
+            match.setIdReporteEncontrado(idReporte);
+            match.setFecha(LocalDateTime.now());
+
             Matching guardado = matchingRepository.save(match);
-            
-            // TAREA GITHUB 4: Enviar evento "MatchEncontrado"
-            emitirEventoMatchEncontrado(guardado.getId());
+
+            // 4. Enviar notificación
+            enviarNotificacion(guardado, perdida);
         }
     }
 
-    // TAREA GITHUB 4 (Detalle): Simulación del emisor de eventos
-    private void emitirEventoMatchEncontrado(Long idMatch) {
-        System.out.println("--> EVENTO EMITIDO: MatchEncontrado con ID: " + idMatch);
-        // Aquí conectarán RabbitMQ / Kafka o el sistema que defina tu grupo para alertar a Notificaciones
+    private void enviarNotificacion(Matching match, ReporteDTO reportePerdida) {
+
+        String mensaje = "🔔 Posible coincidencia encontrada. " +
+                "Se reportó una mascota encontrada cerca de la ubicación donde perdiste a tu mascota.";
+
+        String url = NOTIFICACIONES_URL +
+                "?idUsuario=" + match.getRutUsuario() +
+                "&idMatch=" + match.getId() +
+                "&mensaje=" + mensaje;
+
+        restTemplate.postForObject(url, null, Void.class);
     }
 
-    // --- MÉTODOS DE CONSULTA (Para cuando el frontend pida ver los matches) ---
-    public List<MatchingDTO> obtenerMatchesPorUsuario(Long idUsuario) {
-        return matchingRepository.findByIdUsuario(idUsuario)
-                .stream()
-                .map(this::convertirADTO)
-                .toList();
+    // DTO interno simple para comunicación entre microservicios
+    static class ReporteDTO {
+        private String idReporte;
+        private String rutUsuario;
+        private String tipoReporte;
+        private String ubicacionPerdida;
+
+        public String getIdReporte() { return idReporte; }
+        public void setIdReporte(String idReporte) { this.idReporte = idReporte; }
+
+        public String getRutUsuario() { return rutUsuario; }
+        public void setRutUsuario(String rutUsuario) { this.rutUsuario = rutUsuario; }
+
+        public String getTipoReporte() { return tipoReporte; }
+        public void setTipoReporte(String tipoReporte) { this.tipoReporte = tipoReporte; }
+
+        public String getUbicacionPerdida() { return ubicacionPerdida; }
+        public void setUbicacionPerdida(String ubicacionPerdida) { this.ubicacionPerdida = ubicacionPerdida; }
+    }
+
+    public List<MatchingDTO> obtenerMatchesPorUsuario(String rutUsuario) {
+
+    return matchingRepository.findByRutUsuario(rutUsuario)
+            .stream()
+            .map(this::convertirADTO)
+            .toList();
     }
 }
