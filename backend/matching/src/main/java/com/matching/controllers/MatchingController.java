@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/matching")
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 public class MatchingController {
 
     @Autowired
