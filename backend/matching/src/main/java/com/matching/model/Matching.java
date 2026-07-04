@@ -1,9 +1,8 @@
 package com.matching.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,9 +16,12 @@ public class Matching {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long idMascota;
-    private Long idUsuario;
-    private Long idReporte;
-    private Double porcentajeCompatibilidad;
+    private String rutUsuario;
+
+    private String idReportePerdida;
+
+    private String idReporteEncontrado;
+
     private LocalDateTime fecha;
+
 }

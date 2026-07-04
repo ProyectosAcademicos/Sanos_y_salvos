@@ -30,6 +30,7 @@ public class Reporte {
     private String descripcion;
     private String estado;
     private LocalDate fechaReporte;
+    private String tipoReporte; // "perdida" o "encontrada"
     
     @PrePersist
         protected void onCreate() {
