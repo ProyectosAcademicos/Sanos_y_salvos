@@ -70,7 +70,7 @@ export async function registrarMascotaAgente(
     console.log("Respuesta:", texto);
 
     if (!response.ok) {
-        throw new Error("No fue posible registrar la mascota.");
+        throw new Error("No fue posible registrar la mascota. Por favor intenta nuevamente.");
     }
 
     return JSON.parse(texto);
