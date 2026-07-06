@@ -10,7 +10,9 @@ const HeaderAgenteExterno = () => {
     return (
         <header className="header-general">
             {/* Logo de la empresa */}
-            <img className="logo" src="https://res.cloudinary.com/dr84axabl/image/upload/v1777925023/logo_hwsz7k.png" alt="logo" />
+            <a href="/cerrar">
+                <img className="logo" src="https://res.cloudinary.com/dr84axabl/image/upload/v1777925023/logo_hwsz7k.png" alt="logo" />
+            </a>
             <button 
                 onClick={() => setMenuOpen(!menuOpen)}
                 className="md:hidden flex flex-col gap-1"

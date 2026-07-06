@@ -13,8 +13,11 @@ const HeaderCliente = () => {
 
     const cargarNotificaciones = async () => {
         try {
+            console.log("RUT:", rut);
             const data = await obtenerNotificaciones(rut);
+            console.log("Respuesta API:", data);
             setNotificaciones(data);
+            console.log("Estado actualizado");
         } catch (error) {
             console.error(error);
         }
@@ -28,7 +31,7 @@ const HeaderCliente = () => {
         const interval = setInterval(() => {
             cargarNotificaciones();
         }, 10000); // cada 10 segundos
-
+        console.log("Renderizando:", notificaciones);
         return () => clearInterval(interval);
     }, [rut]);
 
@@ -37,11 +40,9 @@ const HeaderCliente = () => {
     return (
         <header className="header-general">
 
-            <img
-                className="logo"
-                src="https://res.cloudinary.com/dr84axabl/image/upload/v1777925023/logo_hwsz7k.png"
-                alt="logo"
-            />
+            <a href="/cerrar">
+                <img className="logo" src="https://res.cloudinary.com/dr84axabl/image/upload/v1777925023/logo_hwsz7k.png" alt="logo" />
+            </a>
 
             {/* CAMPANA */}
             <div className="noti-bell" onClick={() => setOpenNoti(true)}>
