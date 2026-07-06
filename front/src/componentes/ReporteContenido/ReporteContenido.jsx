@@ -14,6 +14,8 @@ const ReporteContenido = () => {
 
   const navigate = useNavigate();
 
+  const rut = localStorage.getItem("rut");
+
   useEffect(() => {
     const cargarMascotas = async () => {
       try {
@@ -41,7 +43,7 @@ const ReporteContenido = () => {
 
     try {
       await registrarReporte(
-        "12345678-9",
+        rut,
         Number(idMascota),
         ubicacion,
         fecha,
