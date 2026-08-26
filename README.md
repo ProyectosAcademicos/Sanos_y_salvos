@@ -1,5 +1,7 @@
 # Sanos_y_salvos
 
+<img width="352" height="432" alt="Image" src="https://github.com/user-attachments/assets/9865be28-c4f8-47eb-a18a-afef8bd40b33" />
+
 ## 🐳 Levantar Frontend con Docker
 
 ### 1. Construir la imagen
